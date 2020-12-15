@@ -12,7 +12,6 @@ int main()
 {
    addBead();
    board();
-
    return 0;
 }
 
@@ -62,52 +61,39 @@ void board()
 {
     system("cls");
     // top numbers
-    for (int i = 0; i < boardSize; i++)
-        printf("     %d", i+1);
+    printf("     ");  
+    for (int i = 0; i < boardSize; i++){
+        if (i> 8) printf(" %d %d  ",(i + 1 - (i+1)%10)/10 , (i+1)%10 ); 
+        else printf("  %d   ", i+1);
+    }
     printf("\n");    
     // for for rows >> start the first row
     for (int i = 0; i < boardSize; i++)
     {
     // print row i part 1
-        for (int j = 0; j <= boardSize ; j++)
+        for (int j = 0; j < boardSize ; j++)
         {
-           if(j<=9)
-           printf("  |   ");
-           if(j > 9)
-           printf("   |   ");
+           if(!j) printf("  ");
+           printf("  |   ");  
+           if(j == boardSize -1) printf("  |"); 
         }
         printf("\n");
-
     // print row i part 2
             printf("%d",i+1);
+            if(i<= 8) printf(" ");
         for (int j = 0; j < boardSize; j++)
         {
-            if(j < 9 && i < 9)
-            printf(" |  %d ", boardBead[i][j]);
-            if(j >= 9 && i < 9 )
-            printf(" |   %d ", boardBead[i][j]);
-            if(j < 9 && i >= 9)
-            printf("|  %d  ", boardBead[i][j]);
-            if(j >= 9 && i >= 9 )
-            printf("|   %d  ", boardBead[i][j]);
-            if(j == boardSize -1 && i < 9)
-            printf(" |");
-            if(j == boardSize -1 && i >= 9)
-            printf("|");
+            printf("  |  %d", boardBead[i][j]);
+            if(j == boardSize -1) printf("  |");  
         }
         printf("\n");
         
     // print row i part 3
-        for (int j = 0; j < boardSize - 1; j++)
+        for (int j = 0; j < boardSize ; j++)
         {
-            if(!j)
-            printf("  |_____");
-            if(j < 8)
-            printf("|_____");
-            if(j >= 8)
-            printf("|______");
-            if(j == boardSize - 2)
-            printf("|");
+            if(!j) printf("    |_____"); 
+            else printf("|_____");
+            if(j == boardSize - 1) printf("|");
         }
         printf("\n");
             
