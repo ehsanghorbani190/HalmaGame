@@ -4,17 +4,6 @@
 
 int boardBead[boardSize][boardSize];
 
-int addBead();
-void board();
-
-
-int main()
-{
-   addBead();
-   board();
-   return 0;
-}
-
 int addBead()
 {
     // 0 >> empty house
@@ -101,7 +90,11 @@ void board()
             else printf("|_____");
             if(j == boardSize - 1) printf("|");
         }
-        printf("\n");
-            
+        printf("\n");           
     }
+}
+void DrawBoard()
+{
+   addBead();
+   board();
 }
