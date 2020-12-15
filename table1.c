@@ -35,7 +35,7 @@ int addBead()
     // 2 >> player 2
     for (int i = boardSize - 4 ; i < boardSize ; i++)
         for (int j = boardSize - 1 ; j > boardSize - 5; j--)
-            if(i + j - boardSize > boardSize - 6)
+            if(i + j  > 2 * boardSize - 6)
                boardBead[i][j] = 2;
     for (int i = boardSize -2, j = boardSize - 4; i >= boardSize - 4, j <= boardSize -2; i--, j++)
         boardBead[i][j] = 2;
@@ -69,7 +69,7 @@ void board()
     for (int i = 0; i < boardSize; i++)
     {
     // print row i part 1
-        for (int j = 0; j < boardSize + 1; j++)
+        for (int j = 0; j <= boardSize ; j++)
         {
            if(j<=9)
            printf("  |   ");
@@ -82,17 +82,17 @@ void board()
             printf("%d",i+1);
         for (int j = 0; j < boardSize; j++)
         {
-            if(j+1 < 10 && i+1 < 10)
+            if(j < 9 && i < 9)
             printf(" |  %d ", boardBead[i][j]);
-            if(j+1 >= 10 && i+1 < 10 )
+            if(j >= 9 && i < 9 )
             printf(" |   %d ", boardBead[i][j]);
-            if(j+1 < 10 && i+1 >= 10)
+            if(j < 9 && i >= 9)
             printf("|  %d  ", boardBead[i][j]);
-            if(j+1 >= 10 && i+1 >= 10 )
+            if(j >= 9 && i >= 9 )
             printf("|   %d  ", boardBead[i][j]);
-            if(j == boardSize -1 && i+1 < 10)
+            if(j == boardSize -1 && i < 9)
             printf(" |");
-            if(j == boardSize -1 && i+1 >= 10)
+            if(j == boardSize -1 && i >= 9)
             printf("|");
         }
         printf("\n");
@@ -100,11 +100,11 @@ void board()
     // print row i part 3
         for (int j = 0; j < boardSize - 1; j++)
         {
-            if(j+1 == 1)
+            if(!j)
             printf("  |_____");
-            if(j+1 < 9)
+            if(j < 8)
             printf("|_____");
-            if(j+1 >= 9)
+            if(j >= 8)
             printf("|______");
             if(j == boardSize - 2)
             printf("|");
