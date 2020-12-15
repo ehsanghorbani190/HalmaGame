@@ -66,7 +66,13 @@ void board()
         if (i> 8) printf(" %d %d  ",(i + 1 - (i+1)%10)/10 , (i+1)%10 ); 
         else printf("  %d   ", i+1);
     }
-    printf("\n");    
+    printf("\n\n     ");
+    for (int j = 0; j < boardSize ; j++)
+        {
+            printf("_____");
+            if (j < boardSize -1) printf("_");
+        } 
+        printf("\n"); 
     // for for rows >> start the first row
     for (int i = 0; i < boardSize; i++)
     {
