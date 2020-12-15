@@ -1,4 +1,4 @@
-#include "table/table.c"
+#include "table.c"
 
 int addBead();
 
