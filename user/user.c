@@ -100,6 +100,7 @@ void ShowLogin(){
     
     char input;
     unsigned int pointer=0,isLogin=0;
+    system("cls");
     while(input!=13)
     {
 
