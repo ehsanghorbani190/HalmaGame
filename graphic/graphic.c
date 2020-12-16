@@ -1,5 +1,5 @@
 #include <windows.h>
-#include <dos.h>
+#include <direct.h>
 
 
 void SetColor(int ForgC)
