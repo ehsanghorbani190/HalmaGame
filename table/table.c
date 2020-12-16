@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-#define boardSize 15
 
 int boardBead[boardSize][boardSize];
 
