@@ -48,11 +48,13 @@ void board()
 {
     system("cls");
     // top numbers
-    printf("     ");  
+    printf("     ");
+    SetColor(8);  
     for (int i = 0; i < boardSize; i++){
         if (i> 8) printf(" %d %d  ",(i + 1 - (i+1)%10)/10 , (i+1)%10 ); 
         else printf("  %d   ", i+1);
     }
+    SetColor(15);  
     printf("\n\n     ");
     for (int j = 0; j < boardSize ; j++)
         {
@@ -72,8 +74,10 @@ void board()
         }
         printf("\n");
     // print row i part 2
+            SetColor(8);  
             printf("%d",i+1);
             if(i<= 8) printf(" ");
+            SetColor(15);  
         for (int j = 0; j < boardSize; j++)
         {
             printf("  |  %c", boardBead[i][j]);
