@@ -136,13 +136,12 @@ void ShowLogin(){
     {
         char username[50];
         unsigned long password;
+        do{
         printf("Plz enter your user name:");
         scanf("%s",&username);
         printf("Plz enter your password:");
         password=GetPassword();
-        isLogin=login(username,password);
-        printf("\n%d",isLogin);
-
-
+        if(!login(username,password)) printf("\nInvalid username or password! Please retry :D\n");
+        } while(!login(username,password));
     }
 }
