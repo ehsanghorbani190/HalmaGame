@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 
-char boardBead[boardSize][boardSize];
 
 int addBead()
 {
