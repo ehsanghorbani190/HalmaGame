@@ -80,7 +80,11 @@ void board()
             SetColor(15);  
         for (int j = 0; j < boardSize; j++)
         {
-            printf("  |  %c", (boardBead[i][j]) ? 254 :32);
+            char ch;
+            if(boardBead[i][j] > 0) ch = 254;
+            else if(boardBead[i][j] == 0) ch = 32;
+            else if(boardBead[i][j] == -1) ch = 55; 
+            printf("  |  %c", ch);
             if(j == boardSize -1) printf("  |");  
         }
         printf("\n");
@@ -95,8 +99,4 @@ void board()
         printf("\n");           
     }
 }
-void DrawBoard()
-{
-   addBead();
-   board();
-}
+

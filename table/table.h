@@ -4,4 +4,3 @@ int addBead();
 
 void board();
 
-void DrawBoard();
