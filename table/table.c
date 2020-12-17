@@ -2,7 +2,7 @@
 
 
 
-int addBead()
+int addBead(int PlayerCount)
 {
     // 0 >> empty house
     for (int i = 0; i < 10; i++)
@@ -25,6 +25,7 @@ int addBead()
                boardBead[i][j] = 2;
     for (int i = boardSize -2, j = boardSize - 4; i >= boardSize - 4, j <= boardSize -2; i--, j++)
         boardBead[i][j] = 2;
+    if(PlayerCount==4){
     // 3 >> player 3
         int k = 0;
     for (int i = boardSize - 4; i < boardSize ; i++)
@@ -42,8 +43,8 @@ int addBead()
                boardBead[i][j] = 4;
     for (int i = 1, j = boardSize - 4; i < 3, j < boardSize -1; i++, j++)
         boardBead[i][j] = 4;     
+    }
 }
-
 void board()
 {
     system("cls");

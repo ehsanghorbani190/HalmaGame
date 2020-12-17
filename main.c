@@ -12,7 +12,6 @@
 int main()
 {
  ShowLogin();
- addBead();
+ addBead(4);
   move();
- 
 }
