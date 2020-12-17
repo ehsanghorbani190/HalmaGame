@@ -5,11 +5,14 @@
 #include "graphic/graphic.h"
 #include "user/user.h"
 #include "table/table.h"
+#include "move/move.h"
 
 
 
 int main()
 {
  ShowLogin();
- DrawBoard();
+ addBead();
+  move();
+ 
 }
