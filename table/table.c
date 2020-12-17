@@ -84,7 +84,7 @@ void board()
             char ch;
             if(boardBead[i][j] > 0) ch = 254;
             else if(boardBead[i][j] == 0) ch = 32;
-            else if(boardBead[i][j] == -1) ch = 176; 
+            else if(boardBead[i][j] == -1) ch = 240; 
             printf("  |  ");
             switch(boardBead[i][j]){
                 case 1: 
