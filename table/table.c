@@ -84,7 +84,23 @@ void board()
             if(boardBead[i][j] > 0) ch = 254;
             else if(boardBead[i][j] == 0) ch = 32;
             else if(boardBead[i][j] == -1) ch = 176; 
-            printf("  |  %c", ch);
+            printf("  |  ");
+            switch(boardBead[i][j]){
+                case 1: 
+                SetColor(1);
+                break;
+                case 2:
+                SetColor(4);
+                break;
+                case 3:
+                SetColor(2);
+                break;
+                case 4:
+                SetColor(14);
+                break;
+            }
+            printf("%c" , ch);
+            SetColor(15);
             if(j == boardSize -1) printf("  |");  
         }
         printf("\n");
