@@ -83,7 +83,7 @@ void board()
             char ch;
             if(boardBead[i][j] > 0) ch = 254;
             else if(boardBead[i][j] == 0) ch = 32;
-            else if(boardBead[i][j] == -1) ch = 55; 
+            else if(boardBead[i][j] == -1) ch = 176; 
             printf("  |  %c", ch);
             if(j == boardSize -1) printf("  |");  
         }
