@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include <conio.h>
 int move(){
-    int i = 1 , j = 1,temp=boardBead[i-1][j-1];
-    char ch;
-    boardBead[i-1][j-1] = -1;
+    int i = 1 , j = 1, temp =  boardBead[i-1][j-1] , x, y;
+    char ch ;
+    board();
     while(ch != 13){
-        printf("\nMove your position on Table");
-        board();
+        x = j-1 , y = i-1;
+        SetColor(15);
+        gotoxy(9 + (j-1)*6,5 +(i-1)*3);
+        printf("\b%c" , 240);
         ch = getch();
-        boardBead[i-1][j-1] = temp;
         switch(ch){
             case KEY_UP:
             if(i>1) i--;
@@ -23,8 +24,23 @@ int move(){
             if(j<boardSize) j++;
             break;
         }
-        temp=boardBead[i-1][j-1];
-        boardBead[i-1][j-1]= -1;
+        switch(temp){
+                case 1: 
+                SetColor(1);
+                break;
+                case 2:
+                SetColor(4);
+                break;
+                case 3:
+                SetColor(2);
+                break;
+                case 4:
+                SetColor(14);
+                break;
+            }
+        gotoxy(9 + x*6,5 +y*3);
+        printf("\b%c" , (temp) ? 254 : 32);
+        temp =  boardBead[i-1][j-1];
     }
     printf("You have Moved :D");
 }
