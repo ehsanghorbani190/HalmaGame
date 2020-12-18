@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-
+#define gotoxy(x,y) printf("\033[%d;%dH", (y), (x))
 
 int addBead(int PlayerCount)
 {
