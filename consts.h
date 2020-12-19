@@ -6,3 +6,5 @@
 #define KEY_RIGHT 77
 //Board 
 int boardBead[boardSize][boardSize];
+//Role : this var shows us which player should play
+int Role = 1;
