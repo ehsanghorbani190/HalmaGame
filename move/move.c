@@ -2,13 +2,14 @@
 #include <conio.h>
 int move(){
     int i = 1 , j = 1, temp =  boardBead[i-1][j-1] , x, y;
-    char ch ;
+    char ch ,tch ;
     board();
     while(ch != 13){
         x = j-1 , y = i-1;
         SetColor(15);
+        tch = (boardBead[i-1][j-1] == Role || boardBead[i-1][j-1] == 0) ? 240 : 42;
         gotoxy(9 + (j-1)*6,5 +(i-1)*3);
-        printf("\b%c" , 240);
+        printf("\b%c" , tch);
         ch = getch();
         switch(ch){
             case KEY_UP:
@@ -28,6 +29,7 @@ int move(){
             else j= 1;
             break;
         }
+        //Change color for redrawing beads
         switch(temp){
                 case 1: 
                 SetColor(1);
@@ -42,6 +44,7 @@ int move(){
                 SetColor(14);
                 break;
             }
+            //redraw the cell we left
         gotoxy(9 + x*6,5 +y*3);
         printf("\b%c" , (temp) ? 254 : 32);
         temp =  boardBead[i-1][j-1];
