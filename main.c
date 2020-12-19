@@ -11,7 +11,8 @@
 
 int main()
 {
- ShowLogin();
- addBead(4);
+  ShowLogin();
+  addBead(4);
+  board();
   move();
 }

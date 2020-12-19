@@ -3,7 +3,6 @@
 int move(){
     int i = 1 , j = 1, temp =  boardBead[i-1][j-1] , x, y;
     char ch ,tch ;
-    board();
     while(ch != 13){
         x = j-1 , y = i-1;
         SetColor(15);
