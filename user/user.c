@@ -96,26 +96,10 @@ void ShowLogin(){
     
     char input;
     unsigned int pointer=0,isLogin=0;
-    system("cls");
-    while(input!=13)
-    {
+     char menus[2][100]={"login","register"};
+     pointer = DrawMenu(menus,2);
 
-        if(input==KEY_UP)
-            pointer++;
-        if(input==KEY_DOWN)
-            pointer--;
-        SetColor(4);
-        pointer%2 ? printf("  "):printf("> ");
-        printf("login\n");
-        SetColor(6);
-        pointer%2 ? printf("> "):printf("  ");
-        printf("register\n");
-        input = getch();
-        system("cls");
-
-    }
-
-    if(pointer%2)
+    if(!pointer)
     {
         struct User user;
 

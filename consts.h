@@ -8,3 +8,5 @@
 int boardBead[boardSize][boardSize];
 //Role : this var shows us which player should play
 int Role = 1;
+
+#define gotoxy(x,y) printf("\033[%d;%dH", (y), (x))

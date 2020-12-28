@@ -2,6 +2,7 @@
 #include <direct.h>
 
 
+
 void SetColor(int ForgC)
 {
 
@@ -17,5 +18,39 @@ void SetColor(int ForgC)
         wColor = (csbi.wAttributes & 0xF0) + (ForgC & 0x0F);
         SetConsoleTextAttribute(hStdOut, wColor);
     }
-    return;
+    
+}
+
+int DrawMenu(char menu [][100], int numOfMenus){
+  
+    char input;
+    unsigned int pointer=0,position,pastPosition;
+     system("cls");
+     
+    for(int i=0;i<numOfMenus;i++){
+      SetColor(i+1);
+    printf("  %s\n",menu[i]);
+    }
+       while(input!=13)
+     {
+       
+        pastPosition= pointer%3+1;
+        gotoxy(0,position);
+         printf("  ",position);
+        
+        if(input==KEY_UP)
+            pointer--;
+        if(input==KEY_DOWN)
+            pointer++;
+            
+       position=pointer%numOfMenus+1;
+          gotoxy(0,position);
+          SetColor(position);
+         printf("> ",position);
+         gotoxy(0,1000);
+         input = getch();
+     }
+     system("cls");
+     input=0;
+     return position;
 }
