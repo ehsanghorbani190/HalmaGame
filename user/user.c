@@ -98,8 +98,7 @@ void ShowLogin(){
     unsigned int pointer=0,isLogin=0;
      char menus[2][100]={"login","register"};
      pointer = DrawMenu(menus,2);
-
-    if(!pointer)
+    if(pointer==1)
     {
         struct User user;
 

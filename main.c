@@ -17,7 +17,7 @@ int main()
 
   char menus[10][100] = {"New Game", "Continue Game", "Log", "Exit"}, menu;
 
-  //menu = DrawMenu(menus, 4);
+  menu = DrawMenu(menus, 4);
 
   if (menu == 4)
     printf("%d", menu);
