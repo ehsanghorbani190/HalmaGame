@@ -22,8 +22,11 @@ void SetColor(int ForgC)
 }
 
 int DrawMenu(char menu [][100], int numOfMenus){
-  
+
+
+    
     char input;
+    
     unsigned int pointer=0,position,pastPosition;
      system("cls");
      
@@ -45,7 +48,7 @@ int DrawMenu(char menu [][100], int numOfMenus){
             
        position=pointer%numOfMenus+1;
           gotoxy(0,position);
-          SetColor(position);
+          SetColor();
          printf("> ",position);
          gotoxy(0,1000);
          input = getch();
