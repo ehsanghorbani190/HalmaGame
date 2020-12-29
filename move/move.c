@@ -40,8 +40,10 @@ int move()
 {
     int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty;
     char ch, tch;
+    //we want to stop the game if we press esc button
     while (ch != 27)
     {
+        //getting the bead the player wants to move
         while (ch != 13 && ch != 27)
         {
             x = j - 1, y = i - 1;
@@ -58,6 +60,7 @@ int move()
             printf("\b%c", (temp) ? 254 : 32);
             temp = boardBead[i - 1][j - 1];
         }
+        if(ch==13 && boardBead[i - 1][j - 1] != Role) { ch ='\0'; continue;} // if the playe doesnt select his beads , nothing will happen
         //Remove the bead from the cell it left
         gotoxy(9 + (j - 1) * 6, 5 + (i - 1) * 3);
         printf("\b%c", ' ');
@@ -82,6 +85,7 @@ int move()
             gotoxy(9 + x * 6, 5 + y * 3);
             printf("\b%c", (temp) ? 254 : 32);
             temp = boardBead[i - 1][j - 1];
+            if(ch == 13 && boardBead[i-1][j-1]){ch = '\0'; continue;}//if the player select an unempty cell , he shall select again :D
         }
         tx = j, ty = i;
         boardBead[i - 1][j - 1] = movingBead;
