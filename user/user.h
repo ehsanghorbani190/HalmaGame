@@ -10,4 +10,4 @@ int login(char *username, unsigned long password);
 
 unsigned long GetPassword();
 
-void ShowLogin();
+struct User ShowLogin();

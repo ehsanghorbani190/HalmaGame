@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 
-
-
 struct User
 {
     char userName[50];
@@ -14,24 +12,23 @@ void save(struct User record)
     FILE *outfile;
 
     // open file for writing
-    outfile = fopen ("User.dat", "w+");
+    outfile = fopen("User.dat", "a+");
     if (outfile == NULL)
     {
         fprintf(stderr, "\nError opend file\n");
     }
 
     // write struct to file
-    fwrite (&record, sizeof(struct User), 1, outfile);
+    fwrite(&record, sizeof(struct User), 1, outfile);
 
-    if(fwrite != 0)
+    if (fwrite != 0)
         printf("\ndata was saved !\n");
     else
         printf("\nerror while saving !\n");
 
     // close file
-    fclose (outfile);
+    fclose(outfile);
 }
-
 
 unsigned long hash(unsigned char *str)
 {
@@ -50,37 +47,37 @@ int login(char *username, unsigned long password)
     struct User input;
 
     // Open User.dat for reading
-    infile = fopen ("User.dat", "r");
+    infile = fopen("User.dat", "r");
     if (infile == NULL)
     {
         fprintf(stderr, "\nError opening file\n");
-        exit (1);
+        exit(1);
     }
 
     // read file contents till end of file
-    while(fread(&input, sizeof(struct User), 1, infile))
-        if( !strcmp(input.userName,username) && input.password==password)
+    while (fread(&input, sizeof(struct User), 1, infile))
+        if (!strcmp(input.userName, username) && input.password == password)
         {
-            fclose (infile);
+            fclose(infile);
             return 1;
         }
     // close file
-    fclose (infile);
+    fclose(infile);
     return 0;
 }
 unsigned long GetPassword()
 {
-    int input=0,i=0;
-    char temp[50]="";
-    while(input!=13)
+    int input = 0, i = 0;
+    char temp[50] = "";
+    while (input != 13)
     {
-        input =getch();
-        if(input!=13)
+        input = getch();
+        if (input != 13)
         {
-            temp[i]=input;
+            temp[i] = input;
             i++;
 
-            if(input==8)
+            if (input == 8)
             {
                 i--;
                 printf("\b");
@@ -92,36 +89,40 @@ unsigned long GetPassword()
 
     return hash(temp);
 }
-void ShowLogin(){
-    
+struct User ShowLogin()
+{
+
     char input;
-    unsigned int pointer=0,isLogin=0;
-     char menus[2][100]={"login","register"};
-     pointer = DrawMenu(menus,2);
-    if(pointer==1)
+    unsigned int pointer = 0, isLogin = 0;
+    char menus[2][100] = {"login", "register"};
+    struct User user;
+    pointer = DrawMenu(menus, 2);
+    if (pointer == 2)
     {
-        struct User user;
 
         printf("Plz enter your user name:");
-        scanf("%s",&user.userName);
+        scanf("%s", &user.userName);
         printf("Plz enter your password:");
 
-        user.password=GetPassword();
+        user.password = GetPassword();
 
         save(user);
-
-
     }
     else
     {
         char username[50];
         unsigned long password;
-        do{
-        printf("Plz enter your user name:");
-        scanf("%s",&username);
-        printf("Plz enter your password:");
-        password=GetPassword();
-        if(!login(username,password)) printf("\nInvalid username or password! Please retry :D\n");
-        } while(!login(username,password));
+        do
+        {
+            printf("Plz enter your user name:");
+            scanf("%s", &username);
+            printf("Plz enter your password:");
+            password = GetPassword();
+            if (!login(username, password))
+                printf("\nInvalid username or password! Please retry :D\n");
+        } while (!login(username, password));
+        strcpy(user.userName, username);
+        user.password= password;
     }
+    return user;
 }
