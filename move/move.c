@@ -60,7 +60,13 @@ int move()
             printf("\b%c", (temp) ? 254 : 32);
             temp = boardBead[i - 1][j - 1];
         }
-        if(ch==13 && boardBead[i - 1][j - 1] != Role) { ch ='\0'; continue;} // if the playe doesnt select his beads , nothing will happen
+        if(ch==13 && boardBead[i - 1][j - 1] != Role) {
+            ch ='\0';
+            SetColor(12);
+            if(boardBead[i - 1][j - 1]) Log("Please Select one of your beads , not others! ;D");
+            else Log("You Cannot move an empty cell :D");
+            continue;
+            } // if the playe doesnt select his beads , nothing will happen
         //Remove the bead from the cell it left
         gotoxy(9 + (j - 1) * 6, 5 + (i - 1) * 3);
         printf("\b%c", ' ');
@@ -85,7 +91,12 @@ int move()
             gotoxy(9 + x * 6, 5 + y * 3);
             printf("\b%c", (temp) ? 254 : 32);
             temp = boardBead[i - 1][j - 1];
-            if(ch == 13 && boardBead[i-1][j-1]){ch = '\0'; continue;}//if the player select an unempty cell , he shall select again :D
+            if(ch == 13 && boardBead[i-1][j-1]){
+                SetColor(12);
+                ch = '\0';
+                Log("Please move your bead in an empty cell! ;D");
+                continue;
+                }//if the player select an unempty cell , he shall select again :D
         }
         tx = j, ty = i;
         boardBead[i - 1][j - 1] = movingBead;
