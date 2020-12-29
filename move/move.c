@@ -1,5 +1,41 @@
 #include <stdio.h>
 #include <conio.h>
+void keySwitch(char *ch, int *i, int *j)
+{
+    switch (*ch)
+    {
+    case KEY_UP:
+        *i = (*i > 1) ? *(i)-1 : boardSize;
+        break;
+    case KEY_DOWN:
+        *i = (*i < boardSize) ? *(i) + 1 : 1;
+        break;
+    case KEY_LEFT:
+        *j = (*j > 1) ? *(j)-1 : boardSize;
+        break;
+    case KEY_RIGHT:
+        *j = (*j < boardSize) ? *(j) + 1 : 1;
+        break;
+    }
+}
+void ColorSwitch(int x)
+{
+    switch (x)
+    {
+    case 1:
+        SetColor(1);
+        break;
+    case 2:
+        SetColor(4);
+        break;
+    case 3:
+        SetColor(2);
+        break;
+    case 4:
+        SetColor(14);
+        break;
+    }
+}
 int move()
 {
     int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty;
@@ -14,37 +50,9 @@ int move()
             gotoxy(9 + (j - 1) * 6, 5 + (i - 1) * 3);
             printf("\b%c", tch);
             ch = getch();
-            switch (ch)
-            {
-            case KEY_UP:
-                i = (i > 1) ? i - 1 : boardSize;
-                break;
-            case KEY_DOWN:
-                i = (i < boardSize) ? i + 1 : 1;
-                break;
-            case KEY_LEFT:
-                j = (j > 1) ? j - 1 : boardSize;
-                break;
-            case KEY_RIGHT:
-                j = (j < boardSize) ? j + 1 : 1;
-                break;
-            }
+            keySwitch(&ch, &i, &j);
             //Change color for redrawing beads
-            switch (temp)
-            {
-            case 1:
-                SetColor(1);
-                break;
-            case 2:
-                SetColor(4);
-                break;
-            case 3:
-                SetColor(2);
-                break;
-            case 4:
-                SetColor(14);
-                break;
-            }
+            ColorSwitch(temp);
             //redraw the cell we left
             gotoxy(9 + x * 6, 5 + y * 3);
             printf("\b%c", (temp) ? 254 : 32);
@@ -60,21 +68,7 @@ int move()
         while (ch != 13 && ch != 27)
         {
             //We want to move the bead and it's color :D
-            switch (movingBead)
-            {
-            case 1:
-                SetColor(1);
-                break;
-            case 2:
-                SetColor(4);
-                break;
-            case 3:
-                SetColor(2);
-                break;
-            case 4:
-                SetColor(14);
-                break;
-            }
+            ColorSwitch(movingBead);
             x = j - 1, y = i - 1;
             tch = (boardBead[i - 1][j - 1] == 0) ? 254 : 42;
             if (tch == 42)
@@ -82,37 +76,9 @@ int move()
             gotoxy(9 + (j - 1) * 6, 5 + (i - 1) * 3);
             printf("\b%c", tch);
             ch = getch();
-            switch (ch)
-            {
-            case KEY_UP:
-                i = (i > 1) ? i - 1 : boardSize;
-                break;
-            case KEY_DOWN:
-                i = (i < boardSize) ? i + 1 : 1;
-                break;
-            case KEY_LEFT:
-                j = (j > 1) ? j - 1 : boardSize;
-                break;
-            case KEY_RIGHT:
-                j = (j < boardSize) ? j + 1 : 1;
-                break;
-            }
+            keySwitch(&ch, &i, &j);
             //redraw the cell we left
-            switch (temp)
-            {
-            case 1:
-                SetColor(1);
-                break;
-            case 2:
-                SetColor(4);
-                break;
-            case 3:
-                SetColor(2);
-                break;
-            case 4:
-                SetColor(14);
-                break;
-            }
+            ColorSwitch(temp);
             gotoxy(9 + x * 6, 5 + y * 3);
             printf("\b%c", (temp) ? 254 : 32);
             temp = boardBead[i - 1][j - 1];
