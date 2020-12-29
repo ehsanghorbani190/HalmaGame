@@ -48,7 +48,7 @@ int DrawMenu(char menu [][100], int numOfMenus){
             
        position=pointer%numOfMenus+1;
           gotoxy(0,position);
-          SetColor();
+          SetColor(position);
          printf("> ",position);
          gotoxy(0,1000);
          input = getch();
