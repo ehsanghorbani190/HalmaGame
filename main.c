@@ -7,11 +7,9 @@
 #include "table/table.h"
 #include "move/move.h"
 
-
-
 int main()
 {
-  printf("%s\n",LOGO);
+  printf("%s\n", LOGO);
   getch();
   ShowLogin();
 
@@ -38,7 +36,6 @@ int main()
       strcpy(menus[0], "Play On Localhost");
       strcpy(menus[1], "Play Over The Internet");
       menu = DrawMenu(menus, 2);
-      
     }
   }
 }
