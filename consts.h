@@ -1,4 +1,5 @@
 #define boardSize 15 //size of the board
+#define beadType 4
 //keys
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -37,6 +38,6 @@ const char * LOGO = R"V0G0N(
         \::/    /                \::/    /                \::/    /        \::/    /                \::/    /        
          \/____/                  \/____/                  \/____/          \/____/                  \/____/         
                                                                                                                      
-  Press Any Key To Start :)                                                             
+  Press Any Key To Start ⁦(◔‿◔)⁩                                                             
 
 )V0G0N";
