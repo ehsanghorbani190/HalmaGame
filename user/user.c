@@ -112,6 +112,7 @@ struct User ShowLogin()
     {
         char username[50];
         unsigned long password;
+        int i = 4;
         do
         {
             printf("Plz enter your user name:");
@@ -119,8 +120,10 @@ struct User ShowLogin()
             printf("Plz enter your password:");
             password = GetPassword();
             if (!login(username, password))
-                printf("\nInvalid username or password! Please retry :D\n");
-        } while (!login(username, password));
+                printf("\nInvalid username or password! Please retry :D [%d tries remaining]\n" , i);
+                i--;
+            if(i == -1) exit(0);
+        } while (!login(username, password) && i >=0);
         strcpy(user.userName, username);
         user.password= password;
     }
