@@ -31,7 +31,7 @@ int main()
     {
       addBead(4);
       board();
-      move();
+      play();
     }
     else
     {

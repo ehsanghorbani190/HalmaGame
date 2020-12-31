@@ -36,7 +36,7 @@ void ColorSwitch(int x)
         break;
     }
 }
-int move()
+void play()
 {
     int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty;
     char ch, tch;
