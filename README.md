@@ -3,6 +3,7 @@ This is A Halma Game , written in C Language<br>
 For game rules, you may visit <a href="https://en.wikipedia.org/wiki/Halma">This Link</a><br>
 Update : V1(Phase 1) Deliverd .<br>
 <h2>VERY IMPORTANT NOTE: YOU SHOULD MAKE THE WINDOW FULLSCREEN AT THE START FOR MOVE FUNC TO WORK CORRECTLY<br> , OTHERWISE , IT WON'T WORK AS EXPECTED</h2><br>
+
 # What is New :D : <br>
 <pre>
 <h1>Authentucation System</h1><br>
