@@ -38,6 +38,5 @@ const char * LOGO = R"V0G0N(
         \::/    /                \::/    /                \::/    /        \::/    /                \::/    /        
          \/____/                  \/____/                  \/____/          \/____/                  \/____/         
                                                                                                                      
-  Press Any Key To Start :D⁩                                                             
-
+  Press Any Key To Start :D
 )V0G0N";
