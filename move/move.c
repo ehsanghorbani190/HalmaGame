@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <conio.h>
+#define playerCount 4
 void keySwitch(char *ch, int *i, int *j)
 {
     switch (*ch)
@@ -40,6 +41,7 @@ int move()
 {
     int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty;
     char ch, tch;
+    int moveCount[playerCount] = {0},swTurn=0;
     //we want to stop the game if we press esc button
     while (ch != 27)
     {
@@ -107,6 +109,8 @@ int move()
             printf("\b");
         SetColor(15);
         printf("Player %d Moved From %d %d to %d %d", Role, fy, fx, ty, tx);
+        moveCount[swTurn]++;
+        swTurn = (swTurn<4) ? swTurn+1 : 0;
         Role = (Role < 4) ? Role + 1 : 1;
         ch = (ch == 27) ? ch : '\0';
     }
