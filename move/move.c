@@ -41,7 +41,7 @@ void play()
 {
     int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty;
     char ch, tch;
-    int moveCount[playerCount] = {0},swTurn=0;
+    int moveCount[playerCount] = {0},swTurn = 1;
     //we want to stop the game if we press esc button
     while (ch != 27)
     {
@@ -108,9 +108,14 @@ void play()
         for (int w = 1; w <= 50; w++)
             printf("\b");
         SetColor(15);
-        printf("Player %d Moved From %d %d to %d %d", Role, fy, fx, ty, tx);
-        moveCount[swTurn]++;
-        swTurn = (swTurn<4) ? swTurn+1 : 0;
+        printf("Player %d Moved From %d %d to %d %d\n", Role, fy, fx, ty, tx);
+        moveCount[swTurn-1]++;
+        printf("!Player %d Moved %d Times Up To Now!",swTurn,moveCount[swTurn-1]);
+        if(swTurn<playerCount)
+           swTurn++;
+        else
+           swTurn=1;
+           
         Role = (Role < 4) ? Role + 1 : 1;
         ch = (ch == 27) ? ch : '\0';
     }
