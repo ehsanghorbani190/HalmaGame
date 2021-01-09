@@ -100,6 +100,7 @@ if(playerCount==4){
         if((beadType==4&&winner3==13)||(beadType==5&&winner3==19)) return 3;
 } 
 
+return 0;
 }
 void play()
 {
@@ -205,6 +206,7 @@ void play()
             printf("Player 3 Won :]");
         else if(winnerChecker_type1()==4)
             printf("Player 4 Won :]");
+        else if(winnerChecker_type1()==0)
 
            
         Role = (Role < 4) ? Role + 1 : 1;
