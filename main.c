@@ -5,7 +5,7 @@
 #include "graphic/graphic.h"
 #include "user/user.h"
 #include "table/table.h"
-#include "move/move.h"
+#include "play/play.h"
 #include "socket/socket.h"
 
 int main()
