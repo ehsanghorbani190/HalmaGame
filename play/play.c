@@ -103,7 +103,7 @@ if(playerCount==4){
 }
 void play()
 {
-    int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty;
+    int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty , BeadReplace = 0;
     char ch, tch;
     int moveCount[playerCount] = {0},swTurn = 1;
     //we want to stop the game if we press esc button
@@ -167,10 +167,20 @@ void play()
             if((ch == 13) && (xdistance >1 || xdistance < -1 || ydistance > 1 || ydistance < -1)){
                 SetColor(12);
                 ch = '\0';
-                Log("Error");
+                Log("You can only go one cell far away ;)");
                 continue;
             }
+            if(ch == 13 && !xdistance && !ydistance){
+                ch = '\0';
+               BeadReplace = 1;
+               break;
+            }
         }
+        if(BeadReplace) {
+            SetColor(12);
+            Log("You Replaced your selected bead , you may now select another");
+            boardBead[fy - 1][fx - 1] = Role;
+            continue;}
         tx = j, ty = i;
         boardBead[i - 1][j - 1] = movingBead;
         gotoxy(9 + (tx - 1) * 6, 5 + (ty - 1) * 3);
