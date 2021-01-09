@@ -181,6 +181,7 @@ void play()
             SetColor(12);
             Log("You Replaced your selected bead , you may now select another");
             boardBead[fy - 1][fx - 1] = Role;
+            BeadReplace = 0;
             continue;}
         tx = j, ty = i;
         boardBead[i - 1][j - 1] = movingBead;
