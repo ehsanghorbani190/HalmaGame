@@ -29,7 +29,7 @@ int main()
     menu = DrawMenu(menus, 2);
     if (menu == 1)
     {
-      addBead(4);
+      addBead(playerCount);
       board();
       play();
     }
