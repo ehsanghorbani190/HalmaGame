@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <conio.h>
-#define playerCount 4
 void keySwitch(char *ch, int *i, int *j)
 {
     switch (*ch)

@@ -1,5 +1,6 @@
 #define boardSize 15 //size of the board
 #define beadType 4
+#define playerCount 4
 //keys
 #define KEY_UP 72
 #define KEY_DOWN 80
