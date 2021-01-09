@@ -145,7 +145,8 @@ void play()
             //We want to move the bead and it's color :D
             ColorSwitch(movingBead);
             x = j - 1, y = i - 1;
-            tch = (boardBead[i - 1][j - 1] == 0) ? 254 : 42;
+            int xdistance =fx -x -1 , ydistance =fy -y -1;
+            tch = (boardBead[i - 1][j - 1] == 0 && xdistance >= -1 && ydistance >=-1 && xdistance <= 1 && ydistance <= 1) ? 254 : 42;
             if (tch == 42)
                 SetColor(15);
             gotoxy(9 + (j - 1) * 6, 5 + (i - 1) * 3);
@@ -163,6 +164,12 @@ void play()
                 Log("Please move your bead in an empty cell! ;D");
                 continue;
                 }//if the player select an unempty cell , he shall select again :D
+            if((ch == 13) && (xdistance >1 || xdistance < -1 || ydistance > 1 || ydistance < -1)){
+                SetColor(12);
+                ch = '\0';
+                Log("Error");
+                continue;
+            }
         }
         tx = j, ty = i;
         boardBead[i - 1][j - 1] = movingBead;
