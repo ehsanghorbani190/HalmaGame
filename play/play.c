@@ -1,5 +1,36 @@
 #include <stdio.h>
 #include <conio.h>
+int CheckJump(int board[15][15],int x1,int y1,int x2,int y2)
+{
+    int signX=x2-x1,signY=y2-y1,count=0,i,j;
+        if((signX%2) ||(signY%2))
+                return 0;
+
+                    if(signX>0)
+                            signX =1;
+                                else if(signX<0)
+                                        signX=-1;
+                                            if(signY>0)
+                                                    signY =1;
+                                                        else if(signY<0)
+                                                                signY=-1;
+
+                                                                    for(i=x1,j=y1; j!=y2 && i!=x2; i+=signX,j+=signY)
+                                                                            if(board[j][i])
+                                                                                        count++;
+                                                                                            if(count==1 && i==(abs(x2-x1)/2) && j==(abs(y2-y1)/2))
+                                                                                                    return 1;
+                                                                                                        else
+                                                                                                                return 0;
+
+
+                                                                                                                }
+                                                                                                                int CheckJumpType(int x1,int y1,int x2,int y2){
+                                                                                                                    if(abs(x2-x1)>1 || abs(y2-y1)>1)
+                                                                                                                            return 1;
+                                                                                                                                else
+                                                                                                                                        return 0;
+                                                                                                                                        }
 void keySwitch(char *ch, int *i, int *j)
 {
     switch (*ch)
