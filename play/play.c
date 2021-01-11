@@ -32,7 +32,7 @@ int CheckJump( int x1, int y1, int x2, int y2)
 }
 int CheckJumpType(int x1, int y1, int x2, int y2)
 {
-    if (abs(x2 - x1) > 1 || abs(y2 - y1) > 1)
+    if (abs(x2 - x1) > 2 || abs(y2 - y1) > 2)
         return 1;
     else
         return 0;
@@ -252,7 +252,7 @@ void play()
                 Log("Please move your bead in an empty cell! ;D");
                 continue;
             } //if the player select an unempty cell , he shall select again :D
-            if ((ch == 13) && (xdistance > 1 || xdistance < -1 || ydistance > 1 || ydistance < -1))
+            if ((ch == 13) && (xdistance > 1 || xdistance < -1 || ydistance > 1 || ydistance < -1) && !CheckJump(fx-1 , fy -1 , x , y))
             {
                 SetColor(12);
                 ch = '\0';
@@ -265,6 +265,11 @@ void play()
                 BeadReplace = 1;
                 break;
             }
+            // if(ch == 13 && CheckJump(fx-1 , fy -1 , x , y) && !CheckJumpType(fx-1 , fy -1 , x , y)){
+            //     continues = 1;
+            //     ch = '\0';
+            //     break;
+            // }
         }
         if (BeadReplace)
         {
