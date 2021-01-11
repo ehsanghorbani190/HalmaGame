@@ -1,42 +1,6 @@
 #include <stdio.h>
 #include <conio.h>
 #include <math.h>
-int CheckJump( int x1, int y1, int x2, int y2)
-{
-    int signX = x2 - x1 , signY = y2 - y1 , i, j , x = -1, y;
-    if ((signX % 2) || (signY % 2))
-        return 0;
-
-    if (signX > 0)
-        signX = 1;
-    else if (signX < 0)
-        signX = -1;
-    if (signY > 0)
-        signY = 1;
-    else if (signY < 0)
-        signY = -1;
-
-    for (i = x1, j = y1; j != y2 || i != x2; i += signX, j += signY)
-        if (boardBead[j][i])
-            {
-               if(x != -1){
-                   return 0;
-               }
-               x = i , y = j;
-            }
-    
-    if ( x == (abs(x2 + x1) / 2) && y == (abs(y2 + y1) / 2))
-        return 1;
-    else
-        return 0;
-}
-int CheckJumpType(int x1, int y1, int x2, int y2)
-{
-    if (abs(x2 - x1) > 2 || abs(y2 - y1) > 2)
-        return 1;
-    else
-        return 0;
-}
 void keySwitch(char *ch, int *i, int *j)
 {
     switch (*ch)
@@ -182,6 +146,54 @@ int winnerChecker_type1()
             return 3;
     }
 }
+int CheckJump( int x1, int y1, int x2, int y2)
+{
+    int signX = x2 - x1 , signY = y2 - y1 , i, j , x = -1, y;
+    if ((signX % 2) || (signY % 2))
+        return 0;
+
+    if (signX > 0)
+        signX = 1;
+    else if (signX < 0)
+        signX = -1;
+    if (signY > 0)
+        signY = 1;
+    else if (signY < 0)
+        signY = -1;
+
+    for (i = x1, j = y1; j != y2 || i != x2; i += signX, j += signY)
+        if (boardBead[j][i])
+            {
+               if(x != -1){
+                   return 0;
+               }
+               x = i , y = j;
+            }
+    
+    if ( x == (abs(x2 + x1) / 2) && y == (abs(y2 + y1) / 2))
+        return 1;
+    else
+        return 0;
+}
+int CheckJumpType(int x1, int y1, int x2, int y2)
+{
+    if (abs(x2 - x1) > 2 || abs(y2 - y1) > 2)
+        return 1;
+    else
+        return 0;
+}
+int CanContinue(int x , int y){
+    
+    for (int i = y-2;  i <= y+2; i += 4)
+    {
+        for (int j = x-2 ;  j <= x+2; j+=2)
+        {
+            if(CheckJump(x , y , j , i) && j >= 0 && j < boardSize &&i >= 0 && i < boardSize) return 1;
+        }
+    }
+    return ((CheckJump(x , y , x-2 , y)&& x-2 >= 0) ||(CheckJump(x , y , x+2 , y) && x+ 2 < boardSize)) ? 1 : 0;
+
+}
 void play()
 {
     int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty, BeadReplace = 0 , continues = 0;
@@ -191,7 +203,7 @@ void play()
     while (ch != 27)
     {
         //getting the bead the player wants to move
-        while (ch != 13 && ch != 27)
+        while (ch != 13 && ch != 27 && !continues)
         {
             x = j - 1, y = i - 1;
             SetColor(15);
@@ -231,8 +243,9 @@ void play()
             x = j - 1, y = i - 1;
             int xdistance = fx - x - 1, ydistance = fy - y - 1;
             tch = (boardBead[i - 1][j - 1] == 0
-            && ((xdistance >= -1 && ydistance >= -1 && xdistance <= 1 && ydistance <= 1)
-            ||  CheckJump(fx-1 , fy -1 , x , y)))
+            && ((xdistance >= -1 && ydistance >= -1 && xdistance <= 1 && ydistance <= 1 && !continues)
+            ||  CheckJump(fx-1 , fy -1 , x , y)
+            || (continues && !ydistance && !xdistance)))
             ? 254 : 42;
             if (tch == 42)
                 SetColor(15);
@@ -265,11 +278,13 @@ void play()
                 BeadReplace = 1;
                 break;
             }
-            // if(ch == 13 && CheckJump(fx-1 , fy -1 , x , y) && !CheckJumpType(fx-1 , fy -1 , x , y)){
-            //     continues = 1;
-            //     ch = '\0';
-            //     break;
-            // }
+            if(ch == 13 && CheckJump(fx-1 , fy -1 , x , y) && !CheckJumpType(fx-1 , fy -1 , x , y)){
+                if(CanContinue(x , y)) continues = 1;
+                else continues = 0;
+                ch = '\0';
+                break;
+            }
+            if(ch == 'f') { continues = 0; break;}
         }
         if (BeadReplace)
         {
@@ -303,7 +318,11 @@ void play()
             printf("Player 3 Won :]");
         else if (winnerChecker_type1() == 4)
             printf("Player 4 Won :]");
-
+        if(continues){
+            ch = '\0';
+            Log("You may move again , For finishing your turn please press F button");
+            continue;
+        }
         Role = (Role < 4) ? Role + 1 : 1;
         ch = (ch == 27) ? ch : '\0';
     }
