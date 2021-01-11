@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <conio.h>
-int CheckJump(int board[15][15], int x1, int y1, int x2, int y2)
+#include <math.h>
+int CheckJump( int x1, int y1, int x2, int y2)
 {
     int signX = x2 - x1, signY = y2 - y1, count = 0, i, j;
     if ((signX % 2) || (signY % 2))
@@ -16,7 +17,7 @@ int CheckJump(int board[15][15], int x1, int y1, int x2, int y2)
         signY = -1;
 
     for (i = x1, j = y1; j != y2 && i != x2; i += signX, j += signY)
-        if (board[j][i])
+        if (boardBead[j][i])
             count++;
     if (count == 1 && i == (abs(x2 - x1) / 2) && j == (abs(y2 - y1) / 2))
         return 1;
@@ -223,7 +224,10 @@ void play()
             ColorSwitch(movingBead);
             x = j - 1, y = i - 1;
             int xdistance = fx - x - 1, ydistance = fy - y - 1;
-            tch = (boardBead[i - 1][j - 1] == 0 && xdistance >= -1 && ydistance >= -1 && xdistance <= 1 && ydistance <= 1) ? 254 : 42;
+            tch = (boardBead[i - 1][j - 1] == 0
+            && ((xdistance >= -1 && ydistance >= -1 && xdistance <= 1 && ydistance <= 1)
+            ||  CheckJump(fx-1 , fy -1 , x , y)))
+            ? 254 : 42;
             if (tch == 42)
                 SetColor(15);
             gotoxy(9 + (j - 1) * 6, 5 + (i - 1) * 3);
