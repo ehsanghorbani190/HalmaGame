@@ -3,7 +3,7 @@
 #include <math.h>
 int CheckJump( int x1, int y1, int x2, int y2)
 {
-    int signX = x2 - x1, signY = y2 - y1, count = 0, i, j;
+    int signX = x2 - x1 , signY = y2 - y1 , i, j , x = -1, y;
     if ((signX % 2) || (signY % 2))
         return 0;
 
@@ -16,10 +16,16 @@ int CheckJump( int x1, int y1, int x2, int y2)
     else if (signY < 0)
         signY = -1;
 
-    for (i = x1, j = y1; j != y2 && i != x2; i += signX, j += signY)
+    for (i = x1, j = y1; j != y2 || i != x2; i += signX, j += signY)
         if (boardBead[j][i])
-            count++;
-    if (count == 1 && i == (abs(x2 - x1) / 2) && j == (abs(y2 - y1) / 2))
+            {
+               if(x != -1){
+                   return 0;
+               }
+               x = i , y = j;
+            }
+    
+    if ( x == (abs(x2 + x1) / 2) && y == (abs(y2 + y1) / 2))
         return 1;
     else
         return 0;
@@ -178,7 +184,7 @@ int winnerChecker_type1()
 }
 void play()
 {
-    int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty, BeadReplace = 0;
+    int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty, BeadReplace = 0 , continues = 0;
     char ch, tch;
     int moveCount[playerCount] = {0}, swTurn = 1;
     //we want to stop the game if we press esc button
