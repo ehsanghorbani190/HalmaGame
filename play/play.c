@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <conio.h>
+#include <math.h>
 void keySwitch(char *ch, int *i, int *j)
 {
     switch (*ch)
@@ -36,86 +37,178 @@ void ColorSwitch(int x)
         break;
     }
 }
-int winnerChecker_type1(){
-// check the station player 1 for other players 
-    int winner1=0,winner2=0,winner3=0,winner4=0;
-        for (int i = 0; i < beadType; i++) 
+int winnerChecker_type1()
+{
+    // check the station player 1 for other players
+    int winner1 = 0, winner2 = 0, winner3 = 0, winner4 = 0;
+    for (int i = 0; i < beadType; i++)
         for (int j = beadType - 1 - i; j >= 0; j--)
-            if(boardBead[i][j] == 2) winner2++;
-            else if(boardBead[i][j] == 3) winner3++;    
-            else if(boardBead[i][j] == 4) winner4++;   
-        for (int i = 1, j = beadType - 1; i < beadType, j > 0; i++, j--)
-            if(boardBead[i][j] == 2) winner2++;
-            else if(boardBead[i][j] == 3) winner3++;    
-            else if(boardBead[i][j] == 4) winner4++; 
-        if((beadType==4&&winner2==13)||(beadType==5&&winner2==19)) return 2;
-        if((beadType==4&&winner3==13)||(beadType==5&&winner3==19)) return 3;
-        if((beadType==4&&winner4==13)||(beadType==5&&winner4==19)) return 4;
-// check the station player 2 for other players 
-    winner1=0;winner3=0;winner4=0;
-        for (int i = boardSize - beadType ; i < boardSize ; i++) 
-        for (int j = boardSize - 1 ; j > boardSize - beadType - 1; j--)
-            if(boardBead[i][j] == 1) winner1++;
-            else if(boardBead[i][j] == 3) winner3++;    
-            else if(boardBead[i][j] == 4) winner4++;   
-        for (int i = boardSize-2, j = boardSize-beadType; i >= boardSize-beadType, j <= boardSize-2; i--, j++)
-            if(boardBead[i][j] == 1) winner1++;
-            else if(boardBead[i][j] == 3) winner3++;    
-            else if(boardBead[i][j] == 4) winner4++; 
-        if((beadType==4&&winner1==13)||(beadType==5&&winner1==19)) return 1;
-        if((beadType==4&&winner3==13)||(beadType==5&&winner3==19)) return 3;
-        if((beadType==4&&winner4==13)||(beadType==5&&winner4==19)) return 4;
-if(playerCount==4){
-// check the station player 3 for other players
-    winner1=0;winner2=0;winner4=0;
+            if (boardBead[i][j] == 2)
+                winner2++;
+            else if (boardBead[i][j] == 3)
+                winner3++;
+            else if (boardBead[i][j] == 4)
+                winner4++;
+    for (int i = 1, j = beadType - 1; i<beadType, j> 0; i++, j--)
+        if (boardBead[i][j] == 2)
+            winner2++;
+        else if (boardBead[i][j] == 3)
+            winner3++;
+        else if (boardBead[i][j] == 4)
+            winner4++;
+    if ((beadType == 4 && winner2 == 13) || (beadType == 5 && winner2 == 19))
+        return 2;
+    if ((beadType == 4 && winner3 == 13) || (beadType == 5 && winner3 == 19))
+        return 3;
+    if ((beadType == 4 && winner4 == 13) || (beadType == 5 && winner4 == 19))
+        return 4;
+    // check the station player 2 for other players
+    winner1 = 0;
+    winner3 = 0;
+    winner4 = 0;
+    for (int i = boardSize - beadType; i < boardSize; i++)
+        for (int j = boardSize - 1; j > boardSize - beadType - 1; j--)
+            if (boardBead[i][j] == 1)
+                winner1++;
+            else if (boardBead[i][j] == 3)
+                winner3++;
+            else if (boardBead[i][j] == 4)
+                winner4++;
+    for (int i = boardSize - 2, j = boardSize - beadType; i >= boardSize - beadType, j <= boardSize - 2; i--, j++)
+        if (boardBead[i][j] == 1)
+            winner1++;
+        else if (boardBead[i][j] == 3)
+            winner3++;
+        else if (boardBead[i][j] == 4)
+            winner4++;
+    if ((beadType == 4 && winner1 == 13) || (beadType == 5 && winner1 == 19))
+        return 1;
+    if ((beadType == 4 && winner3 == 13) || (beadType == 5 && winner3 == 19))
+        return 3;
+    if ((beadType == 4 && winner4 == 13) || (beadType == 5 && winner4 == 19))
+        return 4;
+    if (playerCount == 4)
+    {
+        // check the station player 3 for other players
+        winner1 = 0;
+        winner2 = 0;
+        winner4 = 0;
         int k = 0;
-        for (int i = boardSize - beadType; i < boardSize ; i++){
+        for (int i = boardSize - beadType; i < boardSize; i++)
+        {
             for (int j = 0; j <= k; j++)
-                if(boardBead[i][j] == 1) winner1++;
-                else if(boardBead[i][j] == 2) winner2++;    
-                else if(boardBead[i][j] == 4) winner4++;   
-            k++;    
+                if (boardBead[i][j] == 1)
+                    winner1++;
+                else if (boardBead[i][j] == 2)
+                    winner2++;
+                else if (boardBead[i][j] == 4)
+                    winner4++;
+            k++;
         }
-        for (int i = boardSize - 2, j = beadType-1; i >= boardSize - beadType, j > 0; i--, j--) 
-            if(boardBead[i][j] == 1) winner1++;
-            else if(boardBead[i][j] == 2) winner2++;    
-            else if(boardBead[i][j] == 4) winner4++;   
-        if((beadType==4&&winner1==13)||(beadType==5&&winner1==19)) return 1;
-        if((beadType==4&&winner2==13)||(beadType==5&&winner2==19)) return 2;
-        if((beadType==4&&winner4==13)||(beadType==5&&winner4==19)) return 4;
-// check the station player 4 for other players
-    winner1=0;winner2=0;winner3=0;
+        for (int i = boardSize - 2, j = beadType - 1; i >= boardSize - beadType, j > 0; i--, j--)
+            if (boardBead[i][j] == 1)
+                winner1++;
+            else if (boardBead[i][j] == 2)
+                winner2++;
+            else if (boardBead[i][j] == 4)
+                winner4++;
+        if ((beadType == 4 && winner1 == 13) || (beadType == 5 && winner1 == 19))
+            return 1;
+        if ((beadType == 4 && winner2 == 13) || (beadType == 5 && winner2 == 19))
+            return 2;
+        if ((beadType == 4 && winner4 == 13) || (beadType == 5 && winner4 == 19))
+            return 4;
+        // check the station player 4 for other players
+        winner1 = 0;
+        winner2 = 0;
+        winner3 = 0;
         for (int i = beadType - 1; i >= 0; i--)
-        for (int j = boardSize-1 ; j > boardSize-beadType-1; j--)
-            if(j - i > boardSize-beadType-1)
-               if(boardBead[i][j] == 1) winner1++;
-               else if(boardBead[i][j] == 2) winner2++;    
-               else if(boardBead[i][j] == 3) winner3++;   
-        for (int i = 1, j = boardSize - beadType; i < beadType-1, j < boardSize -1; i++, j++)
-               if(boardBead[i][j] == 1) winner1++;
-               else if(boardBead[i][j] == 2) winner2++;    
-               else if(boardBead[i][j] == 3) winner3++;
-        if((beadType==4&&winner1==13)||(beadType==5&&winner1==19)) return 1;
-        if((beadType==4&&winner2==13)||(beadType==5&&winner2==19)) return 2;
-        if((beadType==4&&winner3==13)||(beadType==5&&winner3==19)) return 3;
-} 
+            for (int j = boardSize - 1; j > boardSize - beadType - 1; j--)
+                if (j - i > boardSize - beadType - 1)
+                    if (boardBead[i][j] == 1)
+                        winner1++;
+                    else if (boardBead[i][j] == 2)
+                        winner2++;
+                    else if (boardBead[i][j] == 3)
+                        winner3++;
+        for (int i = 1, j = boardSize - beadType; i < beadType - 1, j < boardSize - 1; i++, j++)
+            if (boardBead[i][j] == 1)
+                winner1++;
+            else if (boardBead[i][j] == 2)
+                winner2++;
+            else if (boardBead[i][j] == 3)
+                winner3++;
+        if ((beadType == 4 && winner1 == 13) || (beadType == 5 && winner1 == 19))
+            return 1;
+        if ((beadType == 4 && winner2 == 13) || (beadType == 5 && winner2 == 19))
+            return 2;
+        if ((beadType == 4 && winner3 == 13) || (beadType == 5 && winner3 == 19))
+            return 3;
+    }
+}
+int CheckJump( int x1, int y1, int x2, int y2)
+{
+    int signX = x2 - x1 , signY = y2 - y1 , i, j , x = -1, y;
+    if ((signX % 2) || (signY % 2))
+        return 0;
+
+    if (signX > 0)
+        signX = 1;
+    else if (signX < 0)
+        signX = -1;
+    if (signY > 0)
+        signY = 1;
+    else if (signY < 0)
+        signY = -1;
+
+    for (i = x1, j = y1; j != y2 || i != x2; i += signX, j += signY)
+        if (boardBead[j][i])
+            {
+               if(x != -1){
+                   return 0;
+               }
+               x = i , y = j;
+            }
+    
+    if ( x == (abs(x2 + x1) / 2) && y == (abs(y2 + y1) / 2))
+        return 1;
+    else
+        return 0;
+}
+int CheckJumpType(int x1, int y1, int x2, int y2)
+{
+    if (abs(x2 - x1) > 2 || abs(y2 - y1) > 2)
+        return 1;
+    else
+        return 0;
+}
+int CanContinue(int x , int y){
+    
+    for (int i = y-2;  i <= y+2; i += 4)
+    {
+        for (int j = x-2 ;  j <= x+2; j+=2)
+        {
+            if(CheckJump(x , y , j , i) && j >= 0 && j < boardSize &&i >= 0 && i < boardSize) return 1;
+        }
+    }
+    return ((CheckJump(x , y , x-2 , y)&& x-2 >= 0) ||(CheckJump(x , y , x+2 , y) && x+ 2 < boardSize)) ? 1 : 0;
 
 return 0;
 }
 void play()
 {
-    int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty , BeadReplace = 0;
+    int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty, BeadReplace = 0 , continues = 0;
     char ch, tch;
-    int moveCount[playerCount] = {0},swTurn = 1;
+    int moveCount[playerCount] = {0}, swTurn = 1;
     //we want to stop the game if we press esc button
     while (ch != 27)
     {
         //getting the bead the player wants to move
-        while (ch != 13 && ch != 27)
+        while (ch != 13 && ch != 27 && !continues)
         {
             x = j - 1, y = i - 1;
             SetColor(15);
-            tch = (boardBead[i - 1][j - 1] == Role || boardBead[i - 1][j - 1] == 0) ? 240 : 42;
+            tch = (boardBead[i - 1][j - 1] == Role) ? 240 : 42;
             gotoxy(9 + (j - 1) * 6, 5 + (i - 1) * 3);
             printf("\b%c", tch);
             ch = getch();
@@ -127,13 +220,16 @@ void play()
             printf("\b%c", (temp) ? 254 : 32);
             temp = boardBead[i - 1][j - 1];
         }
-        if(ch==13 && boardBead[i - 1][j - 1] != Role) {
-            ch ='\0';
+        if (ch == 13 && boardBead[i - 1][j - 1] != Role)
+        {
+            ch = '\0';
             SetColor(12);
-            if(boardBead[i - 1][j - 1]) Log("Please Select one of your beads , not others! ;D");
-            else Log("You Cannot move an empty cell :D");
+            if (boardBead[i - 1][j - 1])
+                Log("Please Select one of your beads , not others! ;D");
+            else
+                Log("You Cannot move an empty cell :D");
             continue;
-            } // if the playe doesnt select his beads , nothing will happen
+        } // if the playe doesnt select his beads , nothing will happen
         //Remove the bead from the cell it left
         gotoxy(9 + (j - 1) * 6, 5 + (i - 1) * 3);
         printf("\b%c", ' ');
@@ -146,8 +242,12 @@ void play()
             //We want to move the bead and it's color :D
             ColorSwitch(movingBead);
             x = j - 1, y = i - 1;
-            int xdistance =fx -x -1 , ydistance =fy -y -1;
-            tch = (boardBead[i - 1][j - 1] == 0 && xdistance >= -1 && ydistance >=-1 && xdistance <= 1 && ydistance <= 1) ? 254 : 42;
+            int xdistance = fx - x - 1, ydistance = fy - y - 1;
+            tch = (boardBead[i - 1][j - 1] == 0
+            && ((xdistance >= -1 && ydistance >= -1 && xdistance <= 1 && ydistance <= 1 && !continues)
+            ||  CheckJump(fx-1 , fy -1 , x , y)
+            || (continues && !ydistance && !xdistance)))
+            ? 254 : 42;
             if (tch == 42)
                 SetColor(15);
             gotoxy(9 + (j - 1) * 6, 5 + (i - 1) * 3);
@@ -159,30 +259,42 @@ void play()
             gotoxy(9 + x * 6, 5 + y * 3);
             printf("\b%c", (temp) ? 254 : 32);
             temp = boardBead[i - 1][j - 1];
-            if(ch == 13 && boardBead[i-1][j-1]){
+            if (ch == 13 && boardBead[i - 1][j - 1])
+            {
                 SetColor(12);
                 ch = '\0';
                 Log("Please move your bead in an empty cell! ;D");
                 continue;
-                }//if the player select an unempty cell , he shall select again :D
-            if((ch == 13) && (xdistance >1 || xdistance < -1 || ydistance > 1 || ydistance < -1)){
+            } //if the player select an unempty cell , he shall select again :D
+            if ((ch == 13) && (xdistance > 1 || xdistance < -1 || ydistance > 1 || ydistance < -1) && !CheckJump(fx-1 , fy -1 , x , y))
+            {
                 SetColor(12);
                 ch = '\0';
                 Log("You can only go one cell far away ;)");
                 continue;
             }
-            if(ch == 13 && !xdistance && !ydistance){
+            if (ch == 13 && !xdistance && !ydistance)
+            {
                 ch = '\0';
-               BeadReplace = 1;
-               break;
+                BeadReplace = 1;
+                break;
             }
+            if(ch == 13 && CheckJump(fx-1 , fy -1 , x , y) && !CheckJumpType(fx-1 , fy -1 , x , y)){
+                if(CanContinue(x , y)) continues = 1;
+                else continues = 0;
+                ch = '\0';
+                break;
+            }
+            if(ch == 'f') { continues = 0; break;}
         }
-        if(BeadReplace) {
+        if (BeadReplace)
+        {
             SetColor(12);
             Log("You Replaced your selected bead , you may now select another");
             boardBead[fy - 1][fx - 1] = Role;
             BeadReplace = 0;
-            continue;}
+            continue;
+        }
         tx = j, ty = i;
         boardBead[i - 1][j - 1] = movingBead;
         gotoxy(9 + (tx - 1) * 6, 5 + (ty - 1) * 3);
@@ -192,24 +304,26 @@ void play()
             printf("\b");
         SetColor(15);
         printf("Player %d Moved From %d %d to %d %d\n", Role, fy, fx, ty, tx);
-        moveCount[swTurn-1]++;
-        printf("!Player %d Moved %d Times Up To Now!",swTurn,moveCount[swTurn-1]);
-        if(swTurn<playerCount)
-           swTurn++;
+        moveCount[swTurn - 1]++;
+        printf("!Player %d Moved %d Times Up To Now!", swTurn, moveCount[swTurn - 1]);
+        if (swTurn < playerCount)
+            swTurn++;
         else
-           swTurn=1;
+            swTurn = 1;
 
-        if(winnerChecker_type1()==1)
+        if (winnerChecker_type1() == 1)
             printf("Player 1 Won :]");
-        else if(winnerChecker_type1()==2)
+        else if (winnerChecker_type1() == 2)
             printf("Player 2 Won :]");
-        else if(winnerChecker_type1()==3)
+        else if (winnerChecker_type1() == 3)
             printf("Player 3 Won :]");
-        else if(winnerChecker_type1()==4)
+        else if (winnerChecker_type1() == 4)
             printf("Player 4 Won :]");
-        else if(winnerChecker_type1()==0)
-
-           
+        if(continues){
+            ch = '\0';
+            Log("You may move again , For finishing your turn please press F button");
+            continue;
+        }
         Role = (Role < 4) ? Role + 1 : 1;
         ch = (ch == 27) ? ch : '\0';
     }
