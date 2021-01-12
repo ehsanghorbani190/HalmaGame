@@ -44,104 +44,52 @@ int winnerChecker_type1()
     for (int i = 0; i < beadType; i++)
         for (int j = beadType - 1 - i; j >= 0; j--)
             if (boardBead[i][j] == 2)
-                winner2++;
-            else if (boardBead[i][j] == 3)
-                winner3++;
-            else if (boardBead[i][j] == 4)
-                winner4++;
+                winner2++;  
     for (int i = 1, j = beadType - 1; i<beadType, j> 0; i++, j--)
         if (boardBead[i][j] == 2)
             winner2++;
-        else if (boardBead[i][j] == 3)
-            winner3++;
-        else if (boardBead[i][j] == 4)
-            winner4++;
     if ((beadType == 4 && winner2 == 13) || (beadType == 5 && winner2 == 19))
         return 2;
-    if ((beadType == 4 && winner3 == 13) || (beadType == 5 && winner3 == 19))
-        return 3;
-    if ((beadType == 4 && winner4 == 13) || (beadType == 5 && winner4 == 19))
-        return 4;
+    
     // check the station player 2 for other players
     winner1 = 0;
-    winner3 = 0;
-    winner4 = 0;
     for (int i = boardSize - beadType; i < boardSize; i++)
         for (int j = boardSize - 1; j > boardSize - beadType - 1; j--)
             if (boardBead[i][j] == 1)
                 winner1++;
-            else if (boardBead[i][j] == 3)
-                winner3++;
-            else if (boardBead[i][j] == 4)
-                winner4++;
     for (int i = boardSize - 2, j = boardSize - beadType; i >= boardSize - beadType, j <= boardSize - 2; i--, j++)
         if (boardBead[i][j] == 1)
             winner1++;
-        else if (boardBead[i][j] == 3)
-            winner3++;
-        else if (boardBead[i][j] == 4)
-            winner4++;
     if ((beadType == 4 && winner1 == 13) || (beadType == 5 && winner1 == 19))
         return 1;
-    if ((beadType == 4 && winner3 == 13) || (beadType == 5 && winner3 == 19))
-        return 3;
-    if ((beadType == 4 && winner4 == 13) || (beadType == 5 && winner4 == 19))
-        return 4;
+
     if (playerCount == 4)
     {
         // check the station player 3 for other players
-        winner1 = 0;
-        winner2 = 0;
         winner4 = 0;
         int k = 0;
         for (int i = boardSize - beadType; i < boardSize; i++)
         {
             for (int j = 0; j <= k; j++)
-                if (boardBead[i][j] == 1)
-                    winner1++;
-                else if (boardBead[i][j] == 2)
-                    winner2++;
-                else if (boardBead[i][j] == 4)
+                if (boardBead[i][j] == 4)
                     winner4++;
             k++;
         }
         for (int i = boardSize - 2, j = beadType - 1; i >= boardSize - beadType, j > 0; i--, j--)
-            if (boardBead[i][j] == 1)
-                winner1++;
-            else if (boardBead[i][j] == 2)
-                winner2++;
-            else if (boardBead[i][j] == 4)
+            if (boardBead[i][j] == 4)
                 winner4++;
-        if ((beadType == 4 && winner1 == 13) || (beadType == 5 && winner1 == 19))
-            return 1;
-        if ((beadType == 4 && winner2 == 13) || (beadType == 5 && winner2 == 19))
-            return 2;
         if ((beadType == 4 && winner4 == 13) || (beadType == 5 && winner4 == 19))
             return 4;
         // check the station player 4 for other players
-        winner1 = 0;
-        winner2 = 0;
         winner3 = 0;
         for (int i = beadType - 1; i >= 0; i--)
             for (int j = boardSize - 1; j > boardSize - beadType - 1; j--)
                 if (j - i > boardSize - beadType - 1)
-                    if (boardBead[i][j] == 1)
-                        winner1++;
-                    else if (boardBead[i][j] == 2)
-                        winner2++;
-                    else if (boardBead[i][j] == 3)
+                    if (boardBead[i][j] == 3)
                         winner3++;
         for (int i = 1, j = boardSize - beadType; i < beadType - 1, j < boardSize - 1; i++, j++)
-            if (boardBead[i][j] == 1)
-                winner1++;
-            else if (boardBead[i][j] == 2)
-                winner2++;
-            else if (boardBead[i][j] == 3)
+            if (boardBead[i][j] == 3)
                 winner3++;
-        if ((beadType == 4 && winner1 == 13) || (beadType == 5 && winner1 == 19))
-            return 1;
-        if ((beadType == 4 && winner2 == 13) || (beadType == 5 && winner2 == 19))
-            return 2;
         if ((beadType == 4 && winner3 == 13) || (beadType == 5 && winner3 == 19))
             return 3;
     }
@@ -311,21 +259,22 @@ void play()
             swTurn++;
         else
             swTurn = 1;
-
-        if (winnerChecker_type1() == 1)
-            printf("Player 1 Won :]");
-        else if (winnerChecker_type1() == 2)
-            printf("Player 2 Won :]");
-        else if (winnerChecker_type1() == 3)
-            printf("Player 3 Won :]");
-        else if (winnerChecker_type1() == 4)
-            printf("Player 4 Won :]");
-        else if (winnerChecker_type1() == 0);
-        if(continues){
-            ch = '\0';
-            Log("You may move again , For finishing your turn please press F button");
-            continue;
+        if(moveCount[0]+moveCount[1]+moveCount[2]+moveCount[3]>40){
+            if (winnerChecker_type1() == 1)
+                printf("Player 1 Won :]");
+            else if (winnerChecker_type1() == 2)
+                printf("Player 2 Won :]");
+            else if (winnerChecker_type1() == 3)
+                printf("Player 3 Won :]");
+            else if (winnerChecker_type1() == 4)
+                printf("Player 4 Won :]");
+            else if (winnerChecker_type1() == 0);
         }
+            if(continues){
+                ch = '\0';
+                Log("You may move again , For finishing your turn please press F button");
+                continue;
+            }
         Role = (Role < 4) ? Role + 1 : 1;
         ch = (ch == 27) ? ch : '\0';
     }
