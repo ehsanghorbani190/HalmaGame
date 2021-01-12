@@ -244,6 +244,14 @@ void play()
             BeadReplace = 0;
             continue;
         }
+        if(ch == 'f') { 
+            boardBead[fy - 1][fx - 1] = movingBead;
+            ColorSwitch(boardBead[fy - 1][fx - 1]);
+            gotoxy(9 + (fx - 1) * 6, 5 + (fy - 1) * 3);
+            printf("\b%c", 254);
+            continues = 0;
+            Role = (Role < 4) ? Role + 1 : 1;
+            continue;}
         tx = j, ty = i;
         boardBead[i - 1][j - 1] = movingBead;
         gotoxy(9 + (tx - 1) * 6, 5 + (ty - 1) * 3);
