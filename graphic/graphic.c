@@ -2,8 +2,8 @@
 #include <direct.h>
 
 void Log(char msg[]){
-    gotoxy(0,50);
-    for(int i = 1 ; i < 500 ; i++) printf("\b");
+    gotoxy(1,50);
+    printf("\e");
     printf("%s", msg);
 }
 void SetColor(int ForgC)

@@ -207,7 +207,7 @@ void play()
         {
             x = j - 1, y = i - 1;
             SetColor(15);
-            tch = (boardBead[i - 1][j - 1] == Role || boardBead[i - 1][j - 1] == 0) ? 240 : 42;
+            tch = (boardBead[i - 1][j - 1] == Role) ? 240 : 42;
             gotoxy(9 + (j - 1) * 6, 5 + (i - 1) * 3);
             printf("\b%c", tch);
             ch = getch();
