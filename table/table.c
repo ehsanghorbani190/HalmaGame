@@ -110,4 +110,19 @@ void board()
         printf("\n");           
     }
 }
+void SaveBoard(){
+    FILE * out;
+    out = fopen("save.dat" , "wb");
+    fwrite(boardBead , sizeof(int) , boardSize * boardSize , out);
+    fwrite(&Role , sizeof(int) ,1 , out);
+    fclose(out);
+}
+void ReadBoard(){
+    FILE * in;
+    in = fopen("save.dat" , "rb");
+    fread(boardBead , sizeof(int) , boardSize * boardSize , in);
+    fread(&Role , sizeof(int) ,1 , in);
+    Role--;
+    fclose(in);
+}
 

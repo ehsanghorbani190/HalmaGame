@@ -4,3 +4,6 @@ int addBead();
 
 void board();
 
+void SaveBoard();
+
+void ReadBoard();
