@@ -29,9 +29,33 @@ int main()
     menu = DrawMenu(menus, 2);
     if (menu == 1)
     {
-      addBead(playerCount);
-      board();
-      play();
+      if(fopen("save.dat" , "rb")){
+        system("cls");
+        SetColor(12);
+        printf("There's a saved game , Do You want to start a New Game?(Press Y) Or continue that one?(Press C) Or Quit?(Press Q)?");
+        char ch = getch();
+        if(ch == 'y' || ch == 'Y'){
+        addBead(playerCount);
+        board();
+        play();
+        SaveBoard();
+        }
+        else if(ch == 'c' || ch == 'C'){
+          ReadBoard();
+          board();
+          play();
+          SaveBoard();
+        }
+        else if(ch == 'q' || ch == 'Q'){
+          exit(0);
+        }
+      }
+      else{
+        addBead(playerCount);
+        board();
+        play();
+        SaveBoard();
+      }
     }
     else
     {
@@ -74,5 +98,11 @@ int main()
         }
       }
     }
+  }
+  else if(menu == 2){
+    ReadBoard();
+    board();
+    play();
+    SaveBoard();
   }
 }
