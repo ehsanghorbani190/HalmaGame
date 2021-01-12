@@ -145,6 +145,7 @@ int winnerChecker_type1()
         if ((beadType == 4 && winner3 == 13) || (beadType == 5 && winner3 == 19))
             return 3;
     }
+    return 0;
 }
 int CheckJump( int x1, int y1, int x2, int y2)
 {
@@ -319,6 +320,7 @@ void play()
             printf("Player 3 Won :]");
         else if (winnerChecker_type1() == 4)
             printf("Player 4 Won :]");
+        else if (winnerChecker_type1() == 0);
         if(continues){
             ch = '\0';
             Log("You may move again , For finishing your turn please press F button");
