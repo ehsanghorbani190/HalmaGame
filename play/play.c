@@ -328,8 +328,7 @@ void play()
                 printf("Player 4 Won :]");
             else if (winnerChecker_type1() == 0);
         }
-        int sw1time = 0;
-        if(moveCount[0]+moveCount[1]+moveCount[2]+moveCount[3]>50 && sw1time==0){
+        if(moveCount[0]+moveCount[1]+moveCount[2]+moveCount[3]>50){
             if (winnerChecker_type2() == 1)
                 printf("Player 1 Won :]");
             else if (winnerChecker_type2() == 2)
@@ -339,7 +338,6 @@ void play()
             else if (winnerChecker_type2() == 4)
                 printf("Player 4 Won :]");
             else if (winnerChecker_type2() == 0);
-            sw1time++;
         }
             if(continues){
                 ch = '\0';
