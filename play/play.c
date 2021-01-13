@@ -158,14 +158,14 @@ void play()
             x = j - 1, y = i - 1;
             SetColor(15);
             tch = (boardBead[i - 1][j - 1] == Role) ? 240 : 42;
-            gotoxy(9 + (j - 1) * 6, 5 + (i - 1) * 3);
+            gotoxy(7 + (j - 1) * 4, 3 + (i - 1) * 2);
             printf("\b%c", tch);
             ch = getch();
             keySwitch(&ch, &i, &j);
             //Change color for redrawing beads
             ColorSwitch(temp);
             //redraw the cell we left
-            gotoxy(9 + x * 6, 5 + y * 3);
+            gotoxy(7 + x * 4, 3 + y * 2);
             printf("\b%c", (temp) ? 254 : 32);
             temp = boardBead[i - 1][j - 1];
         }
@@ -180,7 +180,7 @@ void play()
             continue;
         } // if the playe doesnt select his beads , nothing will happen
         //Remove the bead from the cell it left
-        gotoxy(9 + (j - 1) * 6, 5 + (i - 1) * 3);
+        gotoxy(7 + (j - 1) * 4, 3 + (i - 1) * 2);
         printf("\b%c", ' ');
         fx = j, fy = i;
         int movingBead = boardBead[i - 1][j - 1];
@@ -199,13 +199,13 @@ void play()
             ? 254 : 42;
             if (tch == 42)
                 SetColor(15);
-            gotoxy(9 + (j - 1) * 6, 5 + (i - 1) * 3);
+            gotoxy(7 + (j - 1) * 4, 3 + (i - 1) * 2);
             printf("\b%c", tch);
             ch = getch();
             keySwitch(&ch, &i, &j);
             //redraw the cell we left
             ColorSwitch(temp);
-            gotoxy(9 + x * 6, 5 + y * 3);
+            gotoxy(7 + x * 4, 3 + y * 2);
             printf("\b%c", (temp) ? 254 : 32);
             temp = boardBead[i - 1][j - 1];
             if (ch == 13 && boardBead[i - 1][j - 1])
@@ -247,14 +247,14 @@ void play()
         if(ch == 'f') { 
             boardBead[fy - 1][fx - 1] = movingBead;
             ColorSwitch(boardBead[fy - 1][fx - 1]);
-            gotoxy(9 + (fx - 1) * 6, 5 + (fy - 1) * 3);
+            gotoxy(7 + (fx - 1) * 4, 3 + (fy - 1) * 2);
             printf("\b%c", 254);
             continues = 0;
             Role = (Role < 4) ? Role + 1 : 1;
             continue;}
         tx = j, ty = i;
         boardBead[i - 1][j - 1] = movingBead;
-        gotoxy(9 + (tx - 1) * 6, 5 + (ty - 1) * 3);
+        gotoxy(7 + (tx - 1) * 4, 3 + (ty - 1) * 2);
         printf("\b%c", 254);
         gotoxy(0, 50);
         for (int w = 1; w <= 50; w++)
