@@ -1,6 +1,6 @@
 #define boardSize 20 //size of the board
 #define beadType 4
-#define playerCount 4
+#define playerCount 2
 #define leaveCampValue 50
 //keys
 #define KEY_UP 72
