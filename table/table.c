@@ -60,14 +60,6 @@ void board()
     // for for rows >> start the first row
     for (int i = 0; i < boardSize; i++)
     {
-    // print row i part 1
-        // for (int j = 0; j < boardSize ; j++)
-        // {
-        //    if(!j) printf("  ");
-        //    printf("  |   ");  
-        //    if(j == boardSize -1) printf("  |"); 
-        // }
-        //printf("\n");
     // print row i part 2
             SetColor(8);  
             printf("%d",i+1);
