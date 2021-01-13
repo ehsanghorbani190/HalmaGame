@@ -68,8 +68,7 @@ int winnerChecker_type1()
         // check the station player 3 for other players
         winner4 = 0;
         int k = 0;
-        for (int i = boardSize - beadType; i < boardSize; i++)
-        {
+        for (int i = boardSize - beadType; i < boardSize; i++) {
             for (int j = 0; j <= k; j++)
                 if (boardBead[i][j] == 4)
                     winner4++;
@@ -94,6 +93,57 @@ int winnerChecker_type1()
             return 3;
     }
     return 0;
+}
+int winnerChecker_type2(){ // check the stations for leave camp value
+// check the station 1 || ? there should free of player one : player 2 won
+    int counter1 = 0;
+    for (int i = 0; i < beadType; i++)
+        for (int j = beadType - 1 - i; j >= 0; j--)
+            if (boardBead[i][j] == 1)
+                counter1++;  
+    for (int i = 1, j = beadType - 1; i<beadType, j> 0; i++, j--)
+        if (boardBead[i][j] == 1)
+            counter1++;
+    if (counter1!=0)
+        return 2;
+// check the station 2 || ? there should free of player 2 : player 1 won
+    int counter2 = 0;
+     for (int i = boardSize - beadType; i < boardSize; i++)
+        for (int j = boardSize - 1; j > boardSize - beadType - 1; j--)
+            if (boardBead[i][j] == 2)
+                counter2++;
+    for (int i = boardSize - 2, j = boardSize - beadType; i >= boardSize - beadType, j <= boardSize - 2; i--, j++)
+        if (boardBead[i][j] == 2)
+            counter2++;
+    if (counter2!=0)
+        return 1;
+// check the station 3 || ? there should free of player 3 : player 4 won
+    int counter3 = 0,k=0;
+    for (int i = boardSize - beadType; i < boardSize; i++) {
+            for (int j = 0; j <= k; j++)
+                if (boardBead[i][j] == 3)
+                    counter3++;
+            k++;
+        }
+        for (int i = boardSize - 2, j = beadType - 1; i >= boardSize - beadType, j > 0; i--, j--)
+            if (boardBead[i][j] == 3)
+                counter3++;
+    if (counter3!=0)
+        return 4;
+// check the station 4 || ? there should free of player 4 : player 3 won
+        int counter4 = 0;
+        for (int i = beadType - 1; i >= 0; i--)
+            for (int j = boardSize - 1; j > boardSize - beadType - 1; j--)
+                if (j - i > boardSize - beadType - 1)
+                    if (boardBead[i][j] == 4)
+                        counter4++;
+        for (int i = 1, j = boardSize - beadType; i < beadType - 1, j < boardSize - 1; i++, j++)
+            if (boardBead[i][j] == 4)
+                counter4++;
+    if (counter4!=0)
+        return 3;
+
+    return 0;    
 }
 int CheckJump( int x1, int y1, int x2, int y2)
 {
@@ -267,7 +317,7 @@ void play()
             swTurn++;
         else
             swTurn = 1;
-        if(moveCount[0]+moveCount[1]+moveCount[2]+moveCount[3]>40){
+        if(moveCount[0]+moveCount[1]+moveCount[2]+moveCount[3]>50){
             if (winnerChecker_type1() == 1)
                 printf("Player 1 Won :]");
             else if (winnerChecker_type1() == 2)
@@ -277,6 +327,19 @@ void play()
             else if (winnerChecker_type1() == 4)
                 printf("Player 4 Won :]");
             else if (winnerChecker_type1() == 0);
+        }
+        int sw1time = 0;
+        if(moveCount[0]+moveCount[1]+moveCount[2]+moveCount[3]>50 && sw1time==0){
+            if (winnerChecker_type2() == 1)
+                printf("Player 1 Won :]");
+            else if (winnerChecker_type2() == 2)
+                printf("Player 2 Won :]");
+            else if (winnerChecker_type2() == 3)
+                printf("Player 3 Won :]");
+            else if (winnerChecker_type2() == 4)
+                printf("Player 4 Won :]");
+            else if (winnerChecker_type2() == 0);
+            sw1time++;
         }
             if(continues){
                 ch = '\0';
