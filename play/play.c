@@ -317,7 +317,7 @@ void play()
             swTurn++;
         else
             swTurn = 1;
-        if(moveCount[0]+moveCount[1]+moveCount[2]+moveCount[3]>50){
+        if(moveCount[0]+moveCount[1]+moveCount[2]+moveCount[3]>=leaveCampValue){
             if (winnerChecker_type1() == 1)
                 printf("Player 1 Won :]");
             else if (winnerChecker_type1() == 2)
@@ -328,7 +328,7 @@ void play()
                 printf("Player 4 Won :]");
             else if (winnerChecker_type1() == 0);
         }
-        if(moveCount[0]+moveCount[1]+moveCount[2]+moveCount[3]>50){
+        if(moveCount[0]+moveCount[1]+moveCount[2]+moveCount[3] >= leaveCampValue){
             if (winnerChecker_type2() == 1)
                 printf("Player 1 Won :]");
             else if (winnerChecker_type2() == 2)
