@@ -42,6 +42,11 @@ int addBead(int PlayerCount)
 void board()
 {
     system("cls");
+    SetColor(12);
+    printf("%s\n" , Note);
+    printf("PLEASE MAKE THIS WINDOW FULLSCREEN IN ORDER TO GAME FUNTIONS CORRECTLY :D\nThen press anything to start the game ;)");
+    getch();
+    system("cls");
     // top numbers
     printf("   ");
     SetColor(8);  
