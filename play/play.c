@@ -194,6 +194,27 @@ int CanContinue(int x , int y){
 
 return 0;
 }
+int isSurrounded(int x, int y){
+    for (int i = y-2; i <= y+2; i++)
+    {
+        for (int j = x-2; j <= x+2; j++)
+        {
+            if(j>= 0 && j < boardSize && i>= 0 && i < boardSize && (boardBead[i][j] ==0 || (i != y && j != x && boardBead[i][j] == boardBead[y][x]))) return 0;
+        }        
+    }
+    
+    return 1;
+}
+int didSurround(int x, int y){
+  for (int i = y-2; i <= y+2; i++)
+    {
+        for (int j = x-2; j <= x+2; j++)
+        {
+            if(j>= 0 && j < boardSize && i>= 0 && i < boardSize && boardBead[i][j]!=0 && boardBead[i][j] != boardBead[y][x] && isSurrounded(j , i)) return 1;
+        }        
+    }
+    return 0;  
+}
 void play()
 {
     int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty, BeadReplace = 0 , continues = 0;
@@ -337,10 +358,16 @@ void play()
             gotoxy(7 + (fx - 1) * 4, 3 + (fy - 1) * 2);
             printf("\b%c", 254);
             continues = 0;
-            Role = (Role < 4) ? Role + 1 : 1;
+            Role = (Role < playerCount) ? Role + 1 : 1;
             continue;}
         tx = j, ty = i;
         boardBead[i - 1][j - 1] = movingBead;
+        if(didSurround(tx-1, ty-1)){
+            gotoxy(0,50);
+            printf("Player %d Won! Because he surrounded the opponent bead ! Press anything to exit :D", Role);
+            getch();
+            exit(0);
+        }
         gotoxy(7 + (tx - 1) * 4, 3 + (ty - 1) * 2);
         printf("\b%c", 254);
         gotoxy(0, 50);
