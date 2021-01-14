@@ -103,11 +103,25 @@ void board()
     }
 }
 void SaveBoard(){
+    SetColor(9);
+    system("cls");
+    printf("Do you want to save this game ?(Y/y: Yes , anything else: No)\n");
+    char ch = getch();
+    if(ch == 'y' || ch =='Y'){
     FILE * out;
     out = fopen("save.dat" , "wb");
     fwrite(boardBead , sizeof(int) , boardSize * boardSize , out);
     fwrite(&Role , sizeof(int) ,1 , out);
     fclose(out);
+    SetColor(2);
+    printf("Game Save Successfully! Press anything to exit:D");
+    getch();
+    }
+    else{
+        SetColor(3);
+        printf("Press anything to exit:D");
+        getch(); 
+    }
 }
 void ReadBoard(){
     FILE * in;

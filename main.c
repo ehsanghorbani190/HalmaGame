@@ -32,7 +32,7 @@ int main()
       if(fopen("save.dat" , "rb")){
         system("cls");
         SetColor(12);
-        printf("There's a saved game , Do You want to start a New Game?(Press Y) Or continue that one?(Press C) Or Quit?(Press anything)?");
+        printf("There's a saved game,\nDo You want to start a New Game?(Press Y/y)\nOr continue that one?(Press C/c)\nOr Quit?(Press anything)\n");
         char ch = getch();
         if(ch == 'y' || ch == 'Y'){
         addBead(playerCount);
