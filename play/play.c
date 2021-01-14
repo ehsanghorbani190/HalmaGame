@@ -7,12 +7,17 @@
 #include "surround.c"
 void play()
 {
-    int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty, BeadReplace = 0 , continues = 0;
-    char ch, tch;
-    int moveCount[playerCount] = {0}, swTurn = 1;
-    int lm[playerCount][2]={{0}};
-    int lmt[2];
+    int i = 1, j = 1, temp = boardBead[i - 1][j - 1],
+    x, y, fx, fy, tx, ty;//these are used for movment over the array
+    int BeadReplace = 0 ;
+    int continues = 0;// with this we will know that player is doing multiple jumps or not
+    char ch, tch; //this vars are for getting keyboard movment and printing the cell's beads
+    int moveCount[playerCount] = {0}, swTurn = 1,sumMove = 0; // this vars are for LeaveCampValue type
+    /*This Vars are for repeating sequence*/
+    int lm[playerCount][2]={{0}};//save previous moves
+    int lmt[2];//save this move
     int RepeatCount = 0 , RepeatSwitch = 0 , drawOffer = 0;
+    /*End of var list*/
     //we want to stop the game if we press esc button
     while (ch != 27)
     {
@@ -27,9 +32,7 @@ void play()
                 Role = (Role < playerCount) ? Role + 1 : 1;
                 continue;
             }
-            else{
-                drawOffer =0 ;
-            }
+            else drawOffer =0 ;
         }
         if(drawOffer){
             drawOffer = 0;
@@ -143,15 +146,13 @@ void play()
             continue;
         }
         if(ch == 'f') { 
-            boardBead[fy - 1][fx - 1] = movingBead;
+            boardBead[fy - 1][fx - 1] = movingBead, continues = 0 , Role = (Role < playerCount) ? Role + 1 : 1;
             ColorSwitch(boardBead[fy - 1][fx - 1]);
             gotoxy(7 + (fx - 1) * 4, 3 + (fy - 1) * 2);
             printf("\b%c", 254);
-            continues = 0;
-            Role = (Role < playerCount) ? Role + 1 : 1;
-            continue;}
-        tx = j, ty = i;
-        boardBead[i - 1][j - 1] = movingBead;
+            continue;
+            }
+        tx = j, ty = i , boardBead[i - 1][j - 1] = movingBead;
         gotoxy(7 + (tx - 1) * 4, 3 + (ty - 1) * 2);
         printf("\b%c", 254);
         if(didSurround(tx-1, ty-1)){
@@ -164,45 +165,20 @@ void play()
         SetColor(15);
         moveCount[swTurn - 1]++;
         printf("Player %d Moved %d Times Up To Now!", swTurn, moveCount[swTurn - 1]);
-        for (int w = 1; w <= 50; w++)
-            printf(" ");
-        if (swTurn < playerCount)
-            swTurn++;
-        else
-            swTurn = 1;
-        int sumMove = 0;
+        for (int w = 1; w <= 50; w++) printf(" ");
+        swTurn = (swTurn < playerCount) ? swTurn + 1 : 1;
         for (int w = 0; w < playerCount;w++) sumMove += moveCount[w]; 
         if(sumMove>=leaveCampValue){
-            if (winnerChecker_type1() == 1)
-                printf("Player 1 Won :]");
-            else if (winnerChecker_type1() == 2)
-                printf("Player 2 Won :]");
-            else if (winnerChecker_type1() == 3)
-                printf("Player 3 Won :]");
-            else if (winnerChecker_type1() == 4)
-                printf("Player 4 Won :]");
-            else if (winnerChecker_type1() == 0);
-        }
-        if(sumMove >= leaveCampValue){
-            if (winnerChecker_type2() == 1)
-                printf("Player 1 Won :]");
-            else if (winnerChecker_type2() == 2)
-                printf("Player 2 Won :]");
-            else if (winnerChecker_type2() == 3)
-                printf("Player 3 Won :]");
-            else if (winnerChecker_type2() == 4)
-                printf("Player 4 Won :]");
-            else if (winnerChecker_type2() == 0);
+            if (winnerChecker_type1() == 1 || winnerChecker_type2() == 1) printf("Player 1 Won :]");
+            else if (winnerChecker_type1() == 2 || winnerChecker_type2() == 2) printf("Player 2 Won :]");
+            else if (winnerChecker_type1() == 3 || winnerChecker_type2() == 3) printf("Player 3 Won :]");
+            else if (winnerChecker_type1() == 4 || winnerChecker_type2() == 4) printf("Player 4 Won :]");
         }
         lmt[1] = (tx*1000) + ty;
         if(lm[Role-1][0] == 0) RepeatSwitch = 0;
-        else if(lm[Role-1][0] == lmt[1] && lm[Role-1][1] == lmt[0]) {
-            RepeatCount++;
-            RepeatSwitch = 0;
-            }
-        else {RepeatCount = 0; RepeatSwitch = 0;}
-            lm[Role-1][0] = lmt[0];
-            lm[Role-1][1] = lmt[1];
+        else if(lm[Role-1][0] == lmt[1] && lm[Role-1][1] == lmt[0]) RepeatCount += 1,RepeatSwitch = 0 ;
+        else RepeatCount = 0 , RepeatSwitch = 0;
+        lm[Role-1][0] = lmt[0] , lm[Role-1][1] = lmt[1];
         if(RepeatCount == playerCount) RepeatSwitch = 1;
         else RepeatSwitch=0;
         if(continues){
