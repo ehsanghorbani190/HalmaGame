@@ -2,9 +2,9 @@
 #include <direct.h>
 
 void Log(char msg[]){
-    gotoxy(1,50);
-    printf("\e");
+    gotoxy(0,50);
     printf("%s", msg);
+    for(int i = 0; i < 100; i++) printf(" ");
 }
 void SetColor(int ForgC)
 {
