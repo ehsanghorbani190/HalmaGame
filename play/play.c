@@ -242,7 +242,7 @@ void play()
         //getting the bead the player wants to move
         if(RepeatSwitch) {
             RepeatSwitch = 0;
-            gotoxy(0,50);
+            gotoxy(0,5+(boardSize-1)*2);
             printf("Dear Player %d The board is in a repeating sequence ! Do you want to offer Draw to your opponent ?(Y:yes / Anything else : No)", Role);
             char ans =getch();
             if(ans== 'y' || ans =='Y') {
@@ -256,7 +256,7 @@ void play()
         }
         if(drawOffer){
             drawOffer = 0;
-            gotoxy(0,50);
+            gotoxy(0,5+(boardSize-1)*2);
             printf("Dear Player %d Your opponent is offering draw to you , due to board state is repeating. Do You Accept ?(Y:yes / Anything else : No)" , Role);
             char ans =getch();
             if(ans == 'y' || ans =='Y'){
@@ -378,15 +378,15 @@ void play()
         gotoxy(7 + (tx - 1) * 4, 3 + (ty - 1) * 2);
         printf("\b%c", 254);
         if(didSurround(tx-1, ty-1)){
-            gotoxy(0,50);
+            gotoxy(0,5+(boardSize-1)*2);
             printf("Player %d Won! Because he surrounded the opponent bead ! Press anything to exit :D", Role);
             getch();
             exit(0);
         }
-        gotoxy(0, 50);
+        gotoxy(0,5+(boardSize-1)*2);
         SetColor(15);
         moveCount[swTurn - 1]++;
-        printf("Player %d Moved %d Times Up To Now!\n", swTurn, moveCount[swTurn - 1]);
+        printf("Player %d Moved %d Times Up To Now!", swTurn, moveCount[swTurn - 1]);
         for (int w = 1; w <= 50; w++)
             printf(" ");
         if (swTurn < playerCount)

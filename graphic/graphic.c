@@ -2,7 +2,7 @@
 #include <direct.h>
 
 void Log(char msg[]){
-    gotoxy(0,50);
+    gotoxy(0,5+(boardSize-1)*2);
     printf("%s", msg);
     for(int i = 0; i < 100; i++) printf(" ");
 }
