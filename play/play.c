@@ -68,17 +68,15 @@ void play()
             gotoxy(7 + x * 4, 3 + y * 2);
             printf("\b%c", (temp) ? 254 : 32);
             temp = boardBead[i - 1][j - 1];
+            if (ch == 13 && boardBead[i - 1][j - 1] != Role)
+            {
+                ch = '\0';
+                SetColor(12);
+                if (boardBead[i - 1][j - 1]) Log("Please Select one of your beads , not others! ;D");
+                else Log("You Cannot move an empty cell :D");
+                continue;
+            } // if the playe doesnt select his beads , nothing will happen
         }
-        if (ch == 13 && boardBead[i - 1][j - 1] != Role)
-        {
-            ch = '\0';
-            SetColor(12);
-            if (boardBead[i - 1][j - 1])
-                Log("Please Select one of your beads , not others! ;D");
-            else
-                Log("You Cannot move an empty cell :D");
-            continue;
-        } // if the playe doesnt select his beads , nothing will happen
         //Remove the bead from the cell it left
         gotoxy(7 + (j - 1) * 4, 3 + (i - 1) * 2);
         printf("\b%c", ' ');
@@ -109,33 +107,35 @@ void play()
             gotoxy(7 + x * 4, 3 + y * 2);
             printf("\b%c", (temp) ? 254 : 32);
             temp = boardBead[i - 1][j - 1];
-            if (ch == 13 && boardBead[i - 1][j - 1])
-            {
-                SetColor(12);
-                ch = '\0';
-                Log("Please move your bead in an empty cell! ;D");
-                continue;
-            } //if the player select an unempty cell , he shall select again :D
-            if ((ch == 13) && (xdistance > 1 || xdistance < -1 || ydistance > 1 || ydistance < -1) && !CheckJump(fx-1 , fy -1 , x , y))
-            {
-                SetColor(12);
-                ch = '\0';
-                Log("You can only go one cell far away ;)");
-                continue;
+            if(ch == 13 ){
+                if (boardBead[i - 1][j - 1])
+                {
+                    SetColor(12);
+                    ch = '\0';
+                    Log("Please move your bead in an empty cell! ;D");
+                    continue;
+                } //if the player select an unempty cell , he shall select again :D
+                else if ((xdistance > 1 || xdistance < -1 || ydistance > 1 || ydistance < -1) && !CheckJump(fx-1 , fy -1 , x , y))
+                {
+                    SetColor(12);
+                    ch = '\0';
+                    Log("You can only go one cell far away ;)");
+                    continue;
+                }
+                else if (!xdistance && !ydistance)
+                {
+                    ch = '\0';
+                    BeadReplace = 1;
+                    break;
+                }
+                else if(CheckJump(fx-1 , fy -1 , x , y) && !CheckJumpType(fx-1 , fy -1 , x , y)){
+                    if(CanContinue(x , y)) continues = 1;
+                    else continues = 0;
+                    ch = '\0';
+                    break;
+                }
             }
-            if (ch == 13 && !xdistance && !ydistance)
-            {
-                ch = '\0';
-                BeadReplace = 1;
-                break;
-            }
-            if(ch == 13 && CheckJump(fx-1 , fy -1 , x , y) && !CheckJumpType(fx-1 , fy -1 , x , y)){
-                if(CanContinue(x , y)) continues = 1;
-                else continues = 0;
-                ch = '\0';
-                break;
-            }
-            if(ch == 'f') { continues = 0; break;}
+            else if(ch == 'f') { continues = 0; break;}
         }
         if (BeadReplace)
         {
@@ -145,13 +145,14 @@ void play()
             BeadReplace = 0;
             continue;
         }
-        if(ch == 'f') { 
+        if(ch == 'f') 
+        { 
             boardBead[fy - 1][fx - 1] = movingBead, continues = 0 , Role = (Role < playerCount) ? Role + 1 : 1;
             ColorSwitch(boardBead[fy - 1][fx - 1]);
             gotoxy(7 + (fx - 1) * 4, 3 + (fy - 1) * 2);
             printf("\b%c", 254);
             continue;
-            }
+        }
         tx = j, ty = i , boardBead[i - 1][j - 1] = movingBead;
         gotoxy(7 + (tx - 1) * 4, 3 + (ty - 1) * 2);
         printf("\b%c", 254);
