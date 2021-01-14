@@ -3,79 +3,8 @@
 #include <math.h>
 #include "winner.c"
 #include "jump.c"
-
-void keySwitch(char *ch, int *i, int *j)
-{
-    switch (*ch)
-    {
-    case KEY_UP:
-        *i = (*i > 1) ? *(i)-1 : boardSize;
-        break;
-    case KEY_DOWN:
-        *i = (*i < boardSize) ? *(i) + 1 : 1;
-        break;
-    case KEY_LEFT:
-        *j = (*j > 1) ? *(j)-1 : boardSize;
-        break;
-    case KEY_RIGHT:
-        *j = (*j < boardSize) ? *(j) + 1 : 1;
-        break;
-    }
-}
-void ColorSwitch(int x)
-{
-    switch (x)
-    {
-    case 1:
-        SetColor(1);
-        break;
-    case 2:
-        SetColor(4);
-        break;
-    case 3:
-        SetColor(2);
-        break;
-    case 4:
-        SetColor(14);
-        break;
-    }
-}
-
-
-int isSurrounded(int x, int y){
-    for (int i = y-1; i <= y+1; i++)
-    {
-        for (int j = x-1; j <= x+1; j++)
-        {
-            if(j>= 0 && j < boardSize && i>= 0 && i < boardSize 
-            &&
-            (boardBead[i][j] ==0 || (i != y && j != x && boardBead[i][j] == boardBead[y][x]))) return 0;
-        }        
-    }
-    for (int i = y-2;  i <= y+2; i += 2)
-    {
-        for (int j = x-2; j <= x+2; j += 2)
-        {
-            if(j>= 0 && j < boardSize && i>= 0 && i < boardSize 
-            &&
-            boardBead[i][j] ==0 ) return 0;
-        
-        }
-        
-    }
-    
-    return 1;
-}
-int didSurround(int x, int y){
-  for (int i = y-2; i <= y+2; i++)
-    {
-        for (int j = x-2; j <= x+2; j++)
-        {
-            if(j>= 0 && j < boardSize && i>= 0 && i < boardSize && boardBead[i][j]!=0 && boardBead[i][j] != boardBead[y][x] && isSurrounded(j , i)) return 1;
-        }        
-    }
-    return 0;  
-}
+#include "utilities.c"
+#include "surround.c"
 void play()
 {
     int i = 1, j = 1, temp = boardBead[i - 1][j - 1], x, y, fx, fy, tx, ty, BeadReplace = 0 , continues = 0;
