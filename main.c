@@ -32,7 +32,7 @@ int main()
       if(fopen("save.dat" , "rb")){
         system("cls");
         SetColor(12);
-        printf("There's a saved game , Do You want to start a New Game?(Press Y) Or continue that one?(Press C) Or Quit?(Press Q)?");
+        printf("There's a saved game , Do You want to start a New Game?(Press Y) Or continue that one?(Press C) Or Quit?(Press anything)?");
         char ch = getch();
         if(ch == 'y' || ch == 'Y'){
         addBead(playerCount);
@@ -46,7 +46,7 @@ int main()
           play();
           SaveBoard();
         }
-        else if(ch == 'q' || ch == 'Q'){
+        else{
           exit(0);
         }
       }
