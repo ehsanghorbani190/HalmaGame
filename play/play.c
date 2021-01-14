@@ -194,11 +194,6 @@ void play()
                 printf("Player 4 Won :]");
             else if (winnerChecker_type2() == 0);
         }
-            if(continues){
-                ch = '\0';
-                Log("You may move again , For finishing your turn please press F button");
-                continue;
-            }
         lmt[1] = (tx*1000) + ty;
         if(lm[Role-1][0] == 0) RepeatSwitch = 0;
         else if(lm[Role-1][0] == lmt[1] && lm[Role-1][1] == lmt[0]) {
@@ -210,6 +205,11 @@ void play()
             lm[Role-1][1] = lmt[1];
         if(RepeatCount == playerCount) RepeatSwitch = 1;
         else RepeatSwitch=0;
+        if(continues){
+                ch = '\0';
+                Log("You may move again , For finishing your turn please press F button");
+                continue;
+            }
         Role = (Role < playerCount) ? Role + 1 : 1;
         ch = (ch == 27) ? ch : '\0';
     }
