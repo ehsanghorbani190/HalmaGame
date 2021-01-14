@@ -179,8 +179,7 @@ void play()
         else if(lm[Role-1][0] == lmt[1] && lm[Role-1][1] == lmt[0]) RepeatCount += 1,RepeatSwitch = 0 ;
         else RepeatCount = 0 , RepeatSwitch = 0;
         lm[Role-1][0] = lmt[0] , lm[Role-1][1] = lmt[1];
-        if(RepeatCount == playerCount) RepeatSwitch = 1;
-        else RepeatSwitch=0;
+        RepeatSwitch = (RepeatCount == playerCount) ? 1 : 0;
         if(continues){
                 ch = '\0';
                 Log("You may move again , For finishing your turn please press F button");
