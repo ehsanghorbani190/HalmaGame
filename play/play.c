@@ -12,7 +12,8 @@ void play()
     int BeadReplace = 0 ;
     int continues = 0;// with this we will know that player is doing multiple jumps or not
     char ch, tch; //this vars are for getting keyboard movment and printing the cell's beads
-    int moveCount[playerCount] = {0}, swTurn = 1,sumMove = 0; // this vars are for LeaveCampValue type
+    int moveCount[playerCount] = {0};
+    // this vars are for LeaveCampValue type
     /*This Vars are for repeating sequence*/
     int lm[playerCount][2]={{0}};//save previous moves
     int lmt[2];//save this move
@@ -164,16 +165,17 @@ void play()
         }
         gotoxy(0,5+(boardSize-1)*2);
         SetColor(15);
-        moveCount[swTurn - 1]++;
-        printf("Player %d Moved %d Times Up To Now!", swTurn, moveCount[swTurn - 1]);
+        moveCount[Role - 1]++;
+        printf("Player %d Moved %d Times Up To Now!", Role, moveCount[Role - 1]);
         for (int w = 1; w <= 50; w++) printf(" ");
-        swTurn = (swTurn < playerCount) ? swTurn + 1 : 1;
+        int sumMove = 0; 
         for (int w = 0; w < playerCount;w++) sumMove += moveCount[w]; 
+        printf("%d %d" ,moveCount[Role-1], sumMove);
         if(sumMove>=leaveCampValue){
-            if (winnerChecker_type1() == 1 || winnerChecker_type2() == 1) printf("Player 1 Won :]");
-            else if (winnerChecker_type1() == 2 || winnerChecker_type2() == 2) printf("Player 2 Won :]");
-            else if (winnerChecker_type1() == 3 || winnerChecker_type2() == 3) printf("Player 3 Won :]");
-            else if (winnerChecker_type1() == 4 || winnerChecker_type2() == 4) printf("Player 4 Won :]");
+            if (winnerChecker_type1() == 1 || winnerChecker_type2() == 1) Log("Player 1 Won :]");
+            else if (winnerChecker_type1() == 2 || winnerChecker_type2() == 2) Log("Player 2 Won :]");
+            else if (playerCount == 4 && winnerChecker_type1() == 3 || winnerChecker_type2() == 3) Log("Player 3 Won :]");
+            else if (playerCount == 4 && winnerChecker_type1() == 4 || winnerChecker_type2() == 4) Log("Player 4 Won :]");
         }
         lmt[1] = (tx*1000) + ty;
         if(lm[Role-1][0] == 0) RepeatSwitch = 0;
