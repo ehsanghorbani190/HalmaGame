@@ -3,21 +3,60 @@
 
 struct User
 {
+    int id;
     char userName[50];
     unsigned long password;
 };
 
-void save(struct User record)
+long int numOfUsers(FILE *input)
+{
+    long int size;
+    fseek(input, 0, SEEK_END); // seek to end of file
+    size = ftell(input)/sizeof(struct User);       // get current file pointer
+    fseek(input, 0, SEEK_SET);
+    
+    return size;
+}
+
+int checkUnique(char *username)
+{
+    FILE *infile;
+    struct User input;
+
+    // Open User.dat for reading
+    infile = fopen("User.dat", "rb");
+    if (infile == NULL)
+    {
+        fprintf(stderr, "\nError opening file\n");
+        exit(1);
+    }
+    // read file contents till end of file
+    while (fread(&input, sizeof(struct User), 1, infile))
+        if (!strcmp(input.userName, username))
+        {
+            fclose(infile);
+            return 1;
+        }
+    // close file
+    fclose(infile);
+    return  0;
+}
+struct User save(struct User record)
 {
     FILE *outfile;
-
+    if(checkUnique(record.userName)){
+        record.id=-1;
+        return record;
+    }
     // open file for writing
-    outfile = fopen("User.dat", "a+");
+    outfile = fopen("User.dat", "a+b");
+    long int NOM=numOfUsers(outfile);
+    record.id=NOM+1;
     if (outfile == NULL)
     {
         fprintf(stderr, "\nError opend file\n");
     }
-
+    
     // write struct to file
     fwrite(&record, sizeof(struct User), 1, outfile);
 
@@ -28,7 +67,10 @@ void save(struct User record)
 
     // close file
     fclose(outfile);
+
+    return record;
 }
+
 
 unsigned long hash(unsigned char *str)
 {
@@ -41,29 +83,29 @@ unsigned long hash(unsigned char *str)
     return hash;
 }
 
-int login(char *username, unsigned long password)
+struct User login(char *username, unsigned long password)
 {
     FILE *infile;
     struct User input;
 
     // Open User.dat for reading
-    infile = fopen("User.dat", "r");
+    infile = fopen("User.dat", "rb");
     if (infile == NULL)
     {
         fprintf(stderr, "\nError opening file\n");
         exit(1);
     }
-
     // read file contents till end of file
     while (fread(&input, sizeof(struct User), 1, infile))
         if (!strcmp(input.userName, username) && input.password == password)
         {
             fclose(infile);
-            return 1;
+            return input;
         }
+    input.id=-1;
     // close file
     fclose(infile);
-    return 0;
+    return  input;
 }
 unsigned long GetPassword()
 {
@@ -96,36 +138,44 @@ struct User ShowLogin()
     unsigned int pointer = 0, isLogin = 0;
     char menus[2][100] = {"login", "register"};
     struct User user;
+    int i = 4;
     pointer = DrawMenu(menus, 2);
     if (pointer == 2)
     {
-
+        
+        do{
         printf("Plz enter your user name:");
         scanf("%s", &user.userName);
         printf("Plz enter your password:");
 
         user.password = GetPassword();
 
-        save(user);
+        user =save(user);
+        if (user.id==-1)
+                printf("\nYour username is used by another user :D [%d tries remaining]\n", i);
+            i--;
+            if (i == -1)
+                exit(0);
+        } while ( user.id==-1 && i >= 0);
     }
     else
     {
         char username[50];
         unsigned long password;
-        int i = 4;
+        
         do
         {
             printf("Plz enter your user name:");
             scanf("%s", &username);
             printf("Plz enter your password:");
             password = GetPassword();
-            if (!login(username, password))
-                printf("\nInvalid username or password! Please retry :D [%d tries remaining]\n" , i);
-                i--;
-            if(i == -1) exit(0);
-        } while (!login(username, password) && i >=0);
-        strcpy(user.userName, username);
-        user.password= password;
+            user =login(username, password);
+            if (user.id==-1)
+                printf("\nInvalid username or password! Please retry :D [%d tries remaining]\n", i);
+            i--;
+            if (i == -1)
+                exit(0);
+        } while ( user.id==-1 && i >= 0);
     }
     return user;
 }
