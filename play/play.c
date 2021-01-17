@@ -7,8 +7,8 @@
 #include "surround.c"
 void play()
 {
-    int i = 1, j = 1, temp = boardBead[i - 1][j - 1],
-    x, y, fx, fy, tx, ty;//these are used for movment over the array
+    int y = 0, x = 0, temp = boardBead[y][x],
+    fx, fy, tx, ty;//these are used for movment over the array
     int BeadReplace = 0 ;
     int continues = 0;// with this we will know that player is doing multiple jumps or not
     char ch, tch; //this vars are for getting keyboard movment and printing the cell's beads
@@ -56,67 +56,67 @@ void play()
         }
         while (ch != 13 && ch != 27 && !continues)
         {
-            x = j - 1, y = i - 1;
+            fx = x, fy = y;
             SetColor(15);
-            tch = (boardBead[i - 1][j - 1] == Role) ? 240 : 42;
-            gotoxy(7 + (j - 1) * 4, 3 + (i - 1) * 2);
+            tch = (boardBead[y][x] == Role) ? 240 : 42;
+            gotoxy(7 + x* 4, 3 + y* 2);
             printf("\b%c", tch);
             ch = getch();
-            keySwitch(&ch, &i, &j);
+            keySwitch(&ch, &y, &x);
             //Change color for redrawing beads
             ColorSwitch(temp);
             //redraw the cell we left
-            gotoxy(7 + x * 4, 3 + y * 2);
+            gotoxy(7 + fx * 4, 3 + fy * 2);
             printf("\b%c", (temp) ? 254 : 32);
-            temp = boardBead[i - 1][j - 1];
-            if (ch == 13 && boardBead[i - 1][j - 1] != Role)
+            temp = boardBead[y][x];
+            if (ch == 13 && boardBead[y][x] != Role)
             {
                 ch = '\0';
                 SetColor(12);
-                if (boardBead[i - 1][j - 1]) Log("Please Select one of your beads , not others! ;D");
+                if (boardBead[y][x]) Log("Please Select one of your beads , not others! ;D");
                 else Log("You Cannot move an empty cell :D");
                 continue;
             } // if the playe doesnt select his beads , nothing will happen
         }
         //Remove the bead from the cell it left
-        gotoxy(7 + (j - 1) * 4, 3 + (i - 1) * 2);
+        gotoxy(7 + x * 4, 3 + y * 2);
         printf("\b%c", ' ');
-        fx = j, fy = i;
+        fx = x, fy = y;
         lmt[0] = (fx*1000) + fy;
-        int movingBead = boardBead[i - 1][j - 1];
-        boardBead[i - 1][j - 1] = 0;
+        int movingBead = boardBead[y][x];
+        boardBead[y][x] = 0;
         ch = (ch == 27) ? ch : '\0';
         while (ch != 13 && ch != 27)
         {
             //We want to move the bead and it's color :D
             ColorSwitch(movingBead);
-            x = j - 1, y = i - 1;
-            int xdistance = fx - x - 1, ydistance = fy - y - 1;
-            tch = (boardBead[i - 1][j - 1] == 0
+            tx = x, ty = y;
+            int xdistance = fx - tx , ydistance = fy - ty ;
+            tch = (boardBead[y][x] == 0
             && ((xdistance >= -1 && ydistance >= -1 && xdistance <= 1 && ydistance <= 1 && !continues)
-            ||  CheckJump(fx-1 , fy -1 , x , y)
+            ||  CheckJump(fx , fy , tx , ty)
             || (continues && !ydistance && !xdistance)))
             ? 254 : 42;
             if (tch == 42)
                 SetColor(15);
-            gotoxy(7 + (j - 1) * 4, 3 + (i - 1) * 2);
+            gotoxy(7 + x* 4, 3 + y * 2);
             printf("\b%c", tch);
             ch = getch();
-            keySwitch(&ch, &i, &j);
+            keySwitch(&ch, &y, &x);
             //redraw the cell we left
             ColorSwitch(temp);
-            gotoxy(7 + x * 4, 3 + y * 2);
+            gotoxy(7 + tx * 4, 3 + ty * 2);
             printf("\b%c", (temp) ? 254 : 32);
-            temp = boardBead[i - 1][j - 1];
+            temp = boardBead[y][x];
             if(ch == 13 ){
-                if (boardBead[i - 1][j - 1])
+                if (boardBead[y][x])
                 {
                     SetColor(12);
                     ch = '\0';
                     Log("Please move your bead in an empty cell! ;D");
                     continue;
                 } //if the player select an unempty cell , he shall select again :D
-                else if ((xdistance > 1 || xdistance < -1 || ydistance > 1 || ydistance < -1) && !CheckJump(fx-1 , fy -1 , x , y))
+                else if ((xdistance > 1 || xdistance < -1 || ydistance > 1 || ydistance < -1) && !CheckJump(fx, fy , x , y))
                 {
                     SetColor(12);
                     ch = '\0';
@@ -129,8 +129,8 @@ void play()
                     BeadReplace = 1;
                     break;
                 }
-                else if(CheckJump(fx-1 , fy -1 , x , y) && !CheckJumpType(fx-1 , fy -1 , x , y)){
-                    if(CanContinue(x , y)) continues = 1;
+                else if(CheckJump(fx , fy  , tx , ty) && !CheckJumpType(fx , fy , tx , ty)){
+                    if(CanContinue(tx , ty)) continues = 1;
                     else continues = 0;
                     ch = '\0';
                     break;
@@ -142,22 +142,22 @@ void play()
         {
             SetColor(12);
             Log("You Replaced your selected bead , you may now select another");
-            boardBead[fy - 1][fx - 1] = Role;
+            boardBead[fy][fx] = Role;
             BeadReplace = 0;
             continue;
         }
         if(ch == 'f') 
         { 
-            boardBead[fy - 1][fx - 1] = movingBead, continues = 0 , Role = (Role < playerCount) ? Role + 1 : 1;
-            ColorSwitch(boardBead[fy - 1][fx - 1]);
-            gotoxy(7 + (fx - 1) * 4, 3 + (fy - 1) * 2);
+            boardBead[fy][fx ] = movingBead, continues = 0 , Role = (Role < playerCount) ? Role + 1 : 1;
+            ColorSwitch(boardBead[fy][fx]);
+            gotoxy(7 + fx * 4, 3 + fy * 2);
             printf("\b%c", 254);
             continue;
         }
-        tx = j, ty = i , boardBead[i - 1][j - 1] = movingBead;
-        gotoxy(7 + (tx - 1) * 4, 3 + (ty - 1) * 2);
+        tx = x, ty = y , boardBead[y][x] = movingBead;
+        gotoxy(7 + tx * 4, 3 + ty * 2);
         printf("\b%c", 254);
-        if(didSurround(tx-1, ty-1)){
+        if(didSurround(tx, ty)){
             gotoxy(0,5+(boardSize-1)*2);
             printf("Player %d Won! Because he surrounded the opponent bead ! Press anything to exit :D", Role);
             getch();
@@ -170,7 +170,6 @@ void play()
         for (int w = 1; w <= 50; w++) printf(" ");
         int sumMove = 0; 
         for (int w = 0; w < playerCount;w++) sumMove += moveCount[w]; 
-        printf("%d %d" ,moveCount[Role-1], sumMove);
         if(sumMove>=leaveCampValue){
             if (winnerChecker_type1() == 1 || winnerChecker_type2() == 1) Log("Player 1 Won :]");
             else if (winnerChecker_type1() == 2 || winnerChecker_type2() == 2) Log("Player 2 Won :]");

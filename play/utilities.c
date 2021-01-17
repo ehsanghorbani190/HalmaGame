@@ -1,18 +1,18 @@
-void keySwitch(char *ch, int *i, int *j)
+void keySwitch(char *ch, int *y, int *x)
 {
     switch (*ch)
     {
     case KEY_UP:
-        *i = (*i > 1) ? *(i)-1 : boardSize;
+        *y = (*y > 0) ? *(y)-1 : boardSize-1;
         break;
     case KEY_DOWN:
-        *i = (*i < boardSize) ? *(i) + 1 : 1;
+        *y = (*y < boardSize-1) ? *(y) + 1 : 0;
         break;
     case KEY_LEFT:
-        *j = (*j > 1) ? *(j)-1 : boardSize;
+        *x = (*x > 0) ? *(x)-1 : boardSize-1;
         break;
     case KEY_RIGHT:
-        *j = (*j < boardSize) ? *(j) + 1 : 1;
+        *x = (*x < boardSize-1) ? *(x) + 1 : 0;
         break;
     }
 }
