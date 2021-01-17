@@ -93,7 +93,7 @@ void play()
             tx = x, ty = y;
             int xdistance = fx - tx , ydistance = fy - ty ;
             tch = (boardBead[y][x] == 0
-            && ((xdistance >= -1 && ydistance >= -1 && xdistance <= 1 && ydistance <= 1 && !continues)
+            && ((abs(xdistance) <= 1 && abs(ydistance) <= 1 && !continues)
             ||  CheckJump(fx , fy , tx , ty)
             || (continues && !ydistance && !xdistance)))
             ? 254 : 42;
@@ -116,7 +116,7 @@ void play()
                     Log("Please move your bead in an empty cell! ;D");
                     continue;
                 } //if the player select an unempty cell , he shall select again :D
-                else if ((xdistance > 1 || xdistance < -1 || ydistance > 1 || ydistance < -1) && !CheckJump(fx, fy , x , y))
+                else if ((abs(xdistance) > 1 || abs(ydistance) > 1) && !CheckJump(fx, fy , x , y))
                 {
                     SetColor(12);
                     ch = '\0';
