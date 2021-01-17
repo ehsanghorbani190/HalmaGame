@@ -23,11 +23,17 @@ int main()
 
   if (menu == 1)
   {
-    printf("%d", 1);
     strcpy(menus[0], "Single Player");
-    strcpy(menus[1], "Multi Player");
-    menu = DrawMenu(menus, 2);
-    if (menu == 1)
+    strcpy(menus[1], "Two Player");
+    strcpy(menus[2], "Multi Player");
+    menu = DrawMenu(menus, 3);
+    if(menu==1){
+        addBead(playerCount);
+        board();
+        playWithAI();
+        SaveBoard();
+    }
+    else if (menu == 2)
     {
       if(fopen("save.dat" , "rb")){
         system("cls");
@@ -57,7 +63,7 @@ int main()
         SaveBoard();
       }
     }
-    else
+    else if(menu==3)
     {
       strcpy(menus[0], "Play On Localhost");
       strcpy(menus[1], "Play Over The Internet");
