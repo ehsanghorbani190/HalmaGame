@@ -389,8 +389,15 @@ void play()
                     ch = '\0';
                     break;
                 }
+                else if(continues && (!CheckJump(fx, fy, tx, ty) ||(CheckJump(fx, fy, tx, ty) && CheckJumpType(fx, fy, tx, ty)))){
+                    
+                        Log("You can just have multiple normal jumps.\n");
+                        ch = '\0';
+                        continue;
+                    
+                }
             }
-            else if (ch == 'f')
+            else if (ch == 'f' || ch == 'F')
             {
                 continues = 0;
                 break;
