@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": [],
+            "args": ["-lwsock32", "-lWs2_32"],
             "stopAtEntry": false,
             "cwd": "C:\\Program Files\\CodeBlocks\\MinGW\\bin",
             "environment": [],
