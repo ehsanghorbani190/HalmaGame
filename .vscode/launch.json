@@ -9,7 +9,11 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+<<<<<<< Updated upstream
             "args": ["-lwsock32", "-lWs2_32"],
+=======
+            "args": ["-libfcp"],
+>>>>>>> Stashed changes
             "stopAtEntry": false,
             "cwd": "C:\\Program Files\\CodeBlocks\\MinGW\\bin",
             "environment": [],

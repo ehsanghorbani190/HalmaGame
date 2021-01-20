@@ -19,7 +19,7 @@ void swap(int _x, int _y, int x, int y)
   boardBead[_y][_x] = 0;
   boardBead[y][x] = 2;
 }
-void test(struct Node *node,int depth);
+void getNeighbor(struct Node *node,int depth);
 
 void addNodeForBead(struct Node *node,int depth)
 {
@@ -36,15 +36,15 @@ void addNodeForBead(struct Node *node,int depth)
           n=addChild(node, untility(x, y, 0, 2), x, y);
         else
           n=addCase(node->left, untility(x, y, 0, 2), x, y);
-          test(n,depth+1);
+          getNeighbor(n,depth+1);
       }
   }
     
 }
 
-void test(struct Node *node,int depth)
+void getNeighbor(struct Node *node,int depth)
 {
-  if(depth>10)
+  if(depth>2)
   return;
   int x = node->position.x, y = node->position.y;
   do
@@ -57,7 +57,7 @@ void test(struct Node *node,int depth)
     node = node->right;
 
   } while (node != NULL);
-  //addBeadA(playerCount);
+  addBeadA(playerCount);
 }
 
 int main()
