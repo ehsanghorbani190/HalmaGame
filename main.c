@@ -8,6 +8,55 @@
 #include "play/play.h"
 #include "socket/socket.h"
 
+void searchConsts()
+{
+  FILE *constsFile;
+  constsFile = fopen("init config.txt","r");
+  char tmp1[20],tmp2[20];
+  int tmp3;
+  do{   // find beadtype
+    fscanf(constsFile,"%s",tmp1);
+      if(strcmp(tmp1,"Size")==0){ 
+          fscanf(constsFile,"%s",tmp2);
+          fscanf(constsFile,"%d",&tmp3);
+          boardSize = tmp3;
+      }else
+          fscanf(constsFile,"\n");
+  } while (strcmp(tmp1,"Size")!=0);
+  rewind(constsFile);
+  do {// find playerCount
+    fscanf(constsFile,"%s",tmp1);
+      if(strcmp(tmp1,"Player_Num")==0){ 
+          fscanf(constsFile,"%s",tmp2);
+          fscanf(constsFile,"%d",&tmp3);
+          playerCount = tmp3;
+      }else
+          fscanf(constsFile,"\n");
+  } while (strcmp(tmp1,"Player_Num")!=0);
+  rewind(constsFile);
+  do{ // find leavecamp value
+    fscanf(constsFile,"%s",tmp1);
+      if(strcmp(tmp1,"leave_camp_value")==0){ 
+          fscanf(constsFile,"%s",tmp2);
+          fscanf(constsFile,"%d",&tmp3);
+          leaveCampValue = tmp3;
+      }else
+          fscanf(constsFile,"\n");
+  } while (strcmp(tmp1,"leave_camp_value")!=0);
+  rewind(constsFile);
+  do{ // find beadtype
+    fscanf(constsFile,"%s",tmp1);
+      if(strcmp(tmp1,"Beads_order")==0){ 
+          fscanf(constsFile,"%s",tmp2);
+          fgets(tmp2,20,constsFile);
+          int l2 = strlen(tmp2);
+          beadType = tmp2[l2-1] - '0';
+          beadType++;
+      }else
+          fscanf(constsFile,"\n");
+   } while (strcmp(tmp1,"Beads_order")!=0);
+   fclose(constsFile);
+}
 int main()
 {
   SOCKET socket;

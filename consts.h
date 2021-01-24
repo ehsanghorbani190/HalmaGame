@@ -1,7 +1,7 @@
-#define boardSize 10 //size of the board
-#define beadType 3
-#define playerCount 2
-#define leaveCampValue 34
+int boardSize = 20;
+int playerCount = 4;
+int beadType = 4;
+int leaveCampValue = 50;
 //keys
 #define KEY_UP 72
 #define KEY_DOWN 80
