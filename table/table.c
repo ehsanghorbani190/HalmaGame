@@ -39,6 +39,15 @@ int addBead(int PlayerCount)
         boardBead[i][j] = 4;     
     }
 }
+int addBeadA(int PlayerCount)
+{
+     for (int i = 0; i < boardSize; i++)
+        for (int j = 0; j < boardSize; j++)
+          boardBead[i][j] = 0;
+    boardBead[0][0] = 1;  
+    
+    boardBead[19][19] = 2;
+}
 void board()
 {
     system("cls");
