@@ -14,8 +14,8 @@
 int main()
 {
   searchConsts();
-  boardBead = (int **)malloc(boardSize * sizeof(int **));
-  for (int i = 0; i < boardSize; i++) boardBead[i] = (int*)malloc(boardSize * sizeof(int*));
+  boardBead = (int **)malloc(boardSize * sizeof(int *));
+  for (int i = 0; i < boardSize; i++) boardBead[i] = (int*)malloc(boardSize * sizeof(int));
   SOCKET socket;
   char host[50] = "127.0.0.1";
   struct Client clients[4];

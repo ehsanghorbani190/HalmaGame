@@ -124,7 +124,9 @@ void SaveBoard(){
     if(ch == 'y' || ch =='Y'){
     FILE * out;
     out = fopen("save.dat" , "wb");
-    fwrite(boardBead , sizeof(int) , boardSize * boardSize , out);
+    for(int i = 0; i < boardSize; i++)
+     for(int j = 0; j < boardSize; j++)
+      fwrite(&boardBead[i][j] , sizeof(int) , 1 , out);
     fwrite(&Role , sizeof(int) ,1 , out);
     fclose(out);
     SetColor(2);
@@ -140,7 +142,9 @@ void SaveBoard(){
 void ReadBoard(){
     FILE * in;
     in = fopen("save.dat" , "rb");
-    fread(boardBead , sizeof(int) , boardSize * boardSize , in);
+    for(int i = 0; i < boardSize; i++)
+     for(int j = 0; j < boardSize; j++)
+      fread(&boardBead[i][j] , sizeof(int) , 1 , in);
     fread(&Role , sizeof(int) ,1 , in);
     Role--;
     fclose(in);
