@@ -8,57 +8,7 @@
 #include "play/play.h"
 #include "AI/AI.h"
 //#include "socket/socket.h"
-void resetTemp(int boardtemp[boardSize][boardSize])
-{
-  for (int y = 0; y < boardSize; y++)
-    for (int x = 0; x < boardSize; x++)
-      boardtemp[y][x] = boardBead[y][x];
-}
-void swap(int _x, int _y, int x, int y)
-{
-  boardBead[_y][_x] = 0;
-  boardBead[y][x] = 2;
-}
-void getNeighbor(struct Node *node,int depth);
 
-void addNodeForBead(struct Node *node,int depth)
-{
-  struct Node *n= (struct Node*)malloc(sizeof(struct Node));
-  if (untility(node->position.x, node->position.y, 0, 2))
-    return;
-
-  for (int y = 0; y < boardSize; y++){
-    for (int x = 0; x < boardSize; x++)
-      if (isValidMove(node->position.x, node->position.y, x, y))
-      {
-
-        if (node->left == NULL)
-          n=addChild(node, untility(x, y, 0, 2), x, y);
-        else
-          n=addCase(node->left, untility(x, y, 0, 2), x, y);
-          getNeighbor(n,depth+1);
-      }
-  }
-    
-}
-
-void getNeighbor(struct Node *node,int depth)
-{
-  if(depth>2)
-  return;
-  int x = node->position.x, y = node->position.y;
-  do
-  {
-    swap(x, y, node->position.x, node->position.y);
-    addNodeForBead(node,depth);
-    x = node->position.x;
-    y = node->position.y;
-
-    node = node->right;
-
-  } while (node != NULL);
-  addBeadA(playerCount);
-}
 int getColor(char ch){
   switch(ch){
     case 'g':
@@ -119,7 +69,7 @@ void searchConsts()
           fscanf(constsFile,"%s",tmp2);
           fgets(tmp2,20,constsFile);
           int l2 = strlen(tmp2);
-          beadType = tmp2[l2-1] - '0';
+          beadType = tmp2[l2-2] - '0';
           beadType++;
       }else
           fscanf(constsFile,"\n");
@@ -146,23 +96,23 @@ void searchConsts()
       else
           fscanf(constsFile,"\n");
   } while (!feof(constsFile));
-   fclose(constsFile);
+  fclose(constsFile);
 }
 int main()
 {
-  addBeadA(playerCount);
-  struct Node *fnode = (struct Node *)malloc(sizeof(struct Node));
-  fnode->value = 0;
-  fnode->position.x = 19;
-  fnode->position.y = 19;
-  fnode->left = NULL;
-  fnode->right = NULL;
-  addNodeForBead(fnode,0);
+  searchConsts();
+  boardBead = (int **)malloc(boardSize * sizeof(int **));
+  for (int i = 0; i < boardSize; i++) boardBead[i] = (int*)malloc(boardSize * sizeof(int*));
+  // addBeadA(playerCount);
+  // struct Node *fnode = (struct Node *)malloc(sizeof(struct Node));
+  // fnode->value = 0;
+  // fnode->position.x = 19;
+  // fnode->position.y = 19;
+  // fnode->left = NULL;
+  // fnode->right = NULL;
+  // addNodeForBead(fnode,0);
  
-  structure(fnode, 0);
-
-  //board();
-  exit(0);
+  // structure(fnode, 0);
   // SOCKET socket;
   // char host[50] = "127.0.0.1";
   // struct Client clients[4];

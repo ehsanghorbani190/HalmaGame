@@ -12,7 +12,7 @@ int FoPC = 0;
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 //Board 
-int boardBead[boardSize][boardSize];
+int **boardBead;
 //Role : this var shows us which player should play
 int Role = 1;
 
