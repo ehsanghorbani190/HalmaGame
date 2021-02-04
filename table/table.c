@@ -3,8 +3,8 @@
 int addBead(int PlayerCount)
 {
     // 0 >> empty house
-    for (int i = 0; i < 10; i++)
-        for (int j = 0; j < 10; j++)
+    for (int i = 0; i < boardSize; i++)
+        for (int j = 0; j < boardSize; j++)
           boardBead[i][j] = 0;
     // 1 >> player 1
     for (int i = 0; i < beadType; i++)
@@ -88,16 +88,16 @@ void board()
             printf(" | ");
             switch(boardBead[i][j]){
                 case 1: 
-                SetColor(1);
+                SetColor(FPC);
                 break;
                 case 2:
-                SetColor(4);
+                SetColor(SPC);
                 break;
                 case 3:
-                SetColor(2);
+                SetColor(TPC);
                 break;
                 case 4:
-                SetColor(14);
+                SetColor(FoPC);
                 break;
             }
             printf("%c" , ch);
