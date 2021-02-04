@@ -8,6 +8,7 @@
 #include "moveValidation.c"
 #include <time.h>
 
+
 int posibleCase(int x, int y)
 {
     int numOfCases = 0;
@@ -21,33 +22,7 @@ int posibleCase(int x, int y)
     }
     return numOfCases;
 }
-int untility(int x, int y,int step, int type)
-{
-    if (type == 1)
-    {
-        for (int i = boardSize - beadType; i < boardSize; i++)
-            for (int j = boardSize - 1; j > boardSize - beadType - 1; j--)
-                if (i + j > 2 * boardSize - beadType - 2)
-                    if (y == i && x == j)
-                    return -100+step;
-        for (int i = boardSize - 2, j = boardSize - beadType; i >= boardSize - beadType, j <= boardSize - 2; i--, j++)
-             if (y == i && x == j)
-                return -100+step;
-        return 0;
-    }
-    if (type == 2)
-    {
-        for (int i = 0; i < beadType; i++)
-            for (int j = beadType - 1 - i; j >= 0; j--)
-                if (y == i && x == j)
-                    return 100;
 
-        for (int i = 1, j = beadType - 1; i<beadType, j> 0; i++, j--)
-            if (y == i && x == j)
-                return 100;
-        return 0;
-    }
-}
 void playWithAI()
 {
     int y = 0, x = 0, temp = boardBead[y][x],
@@ -56,8 +31,8 @@ void playWithAI()
     int BeadReplace = 0;
     int numOfCases = 0;
     int random = 0;
-    // int BeadNumber = 6 * beadType - 11;
-    int BeadNumber = 2;
+     int BeadNumber = 6 * beadType - 11;
+    //int BeadNumber = 2;
     int continues = 0; // with this we will know that player is doing multiple jumps or not
     char ch, tch;      //this vars are for getting keyboard movment and printing the cell's beads
     int moveCount[playerCount] = {0};
@@ -232,44 +207,42 @@ void playWithAI()
         }
         else
         {
-            // do
-            // {
-            //     numOfCases = 0;
-            //     random = rand() % BeadNumber+1;
-            //     for (Afy = 0; Afy < boardSize && numOfCases != random; Afy++)
-            //     {
-            //         for (Afx = 0; Afx < boardSize && numOfCases != random; Afx++)
-            //         {
-            //             if (boardBead[Afy][Afx] == Role)
-            //                 numOfCases++;
-            //         }
-            //     }
+            do
+            {
+                numOfCases = 0;
+                random = rand() % BeadNumber+1;
+                for (Afy = 0; Afy < boardSize && numOfCases != random; Afy++)
+                {
+                    for (Afx = 0; Afx < boardSize && numOfCases != random; Afx++)
+                    {
+                        if (boardBead[Afy][Afx] == Role)
+                            numOfCases++;
+                    }
+                }
 
-            //     numOfCases = posibleCase(Afx-1,Afy-1);
+                numOfCases = posibleCase(Afx-1,Afy-1);
 
-            // } while (!numOfCases);
-            // random = rand() % numOfCases+1;
-            // numOfCases=0;
-            // for (Aty = 0; Aty < boardSize && numOfCases < random; Aty++)
-            // {
-            //     for (Atx = 0; Atx < boardSize && numOfCases < random; Atx++)
-            //     {
-            //         if (isValidMove(Afx-1, Afy-1, Atx, Aty))
-            //             numOfCases++;
-            //     }
-            // }
-            // char buff[100];
-            // boardBead[Afy - 1][Afx - 1] = 0;
-            // gotoxy(7 + (Afx - 1) * 4, 3 + (Afy - 1) * 2);
-            // printf("\b%c", ' ');
-            // boardBead[Aty - 1][Atx - 1] = Role;
-            // ColorSwitch(Role);
-            // gotoxy(7 + (Atx - 1) * 4, 3 + (Aty - 1) * 2);
-            // printf("\b%c", 254);
-            // sprintf(buff,"   %d,%d -> %d,%d   r=%d",Afx,Afy,Atx,Aty,random);
-            // Log(buff);
-            // Role = (Role < playerCount) ? Role + 1 : 1;
-            // numOfCases = 0;
+            } while (!numOfCases);
+            random = rand() % numOfCases+1;
+            numOfCases=0;
+            for (Aty = 0; Aty < boardSize && numOfCases < random; Aty++)
+            {
+                for (Atx = 0; Atx < boardSize && numOfCases < random; Atx++)
+                {
+                    if (isValidMove(Afx-1, Afy-1, Atx, Aty))
+                        numOfCases++;
+                }
+            }
+            char buff[100];
+            boardBead[Afy - 1][Afx - 1] = 0;
+            gotoxy(7 + (Afx - 1) * 4, 3 + (Afy - 1) * 2);
+            printf("\b%c", ' ');
+            boardBead[Aty - 1][Atx - 1] = Role;
+            ColorSwitch(Role);
+            gotoxy(7 + (Atx - 1) * 4, 3 + (Aty - 1) * 2);
+            printf("\b%c", 254);
+            Role = (Role < playerCount) ? Role + 1 : 1;
+            numOfCases = 0;
         }
     }
 }
