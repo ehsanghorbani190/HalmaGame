@@ -117,6 +117,57 @@ int getValue(struct Node* root)
 {
 	
 }
+void resetTemp(int **boardtemp)
+{
+  for (int y = 0; y < boardSize; y++)
+    for (int x = 0; x < boardSize; x++)
+      boardtemp[y][x] = boardBead[y][x];
+}
+void swap(int _x, int _y, int x, int y)
+{
+  boardBead[_y][_x] = 0;
+  boardBead[y][x] = 2;
+}
+void getNeighbor(struct Node *node,int depth);
+
+void addNodeForBead(struct Node *node,int depth)
+{
+  struct Node *n= (struct Node*)malloc(sizeof(struct Node));
+  if (untility(node->position.x, node->position.y, 0, 2))
+    return;
+
+  for (int y = 0; y < boardSize; y++){
+    for (int x = 0; x < boardSize; x++)
+      if (isValidMove(node->position.x, node->position.y, x, y))
+      {
+
+        if (node->left == NULL)
+          n=addChild(node, untility(x, y, 0, 2), x, y);
+        else
+          n=addCase(node->left, untility(x, y, 0, 2), x, y);
+          getNeighbor(n,depth+1);
+      }
+  }
+    
+}
+
+void getNeighbor(struct Node *node,int depth)
+{
+  if(depth>2)
+  return;
+  int x = node->position.x, y = node->position.y;
+  do
+  {
+    swap(x, y, node->position.x, node->position.y);
+    addNodeForBead(node,depth);
+    x = node->position.x;
+    y = node->position.y;
+
+    node = node->right;
+
+  } while (node != NULL);
+  addBeadA(playerCount);
+}
 // int main() {
 //     srand(time(NULL));
 //     int min,max;
