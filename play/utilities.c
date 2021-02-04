@@ -21,16 +21,16 @@ void ColorSwitch(int x)
     switch (x)
     {
     case 1:
-        SetColor(1);
+        SetColor(FPC);
         break;
     case 2:
-        SetColor(4);
+        SetColor(SPC);
         break;
     case 3:
-        SetColor(2);
+        SetColor(TPC);
         break;
     case 4:
-        SetColor(14);
+        SetColor(FoPC);
         break;
     }
 }

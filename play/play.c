@@ -60,10 +60,12 @@ void playWithAI()
     int BeadNumber = 2;
     int continues = 0; // with this we will know that player is doing multiple jumps or not
     char ch, tch;      //this vars are for getting keyboard movment and printing the cell's beads
-    int moveCount[playerCount] = {0};
+    int moveCount[playerCount];
+    for(int h = 0; h < playerCount; h++) moveCount[h] = 0;
     // this vars are for LeaveCampValue type
     /*This Vars are for repeating sequence*/
-    int lm[playerCount][2] = {{0}}; //save previous moves
+    int lm[playerCount][2]; //save previous moves
+    for(int h = 0; h < playerCount; h++) lm[h][0] = 0 , lm[h][1] =0;
     int lmt[2];                     //save this move
     int RepeatCount = 0, RepeatSwitch = 0, drawOffer = 0;
     /*End of var list*/
@@ -281,10 +283,12 @@ void play()
     int BeadReplace = 0;
     int continues = 0; // with this we will know that player is doing multiple jumps or not
     char ch, tch;      //this vars are for getting keyboard movment and printing the cell's beads
-    int moveCount[playerCount] = {0};
+    int moveCount[playerCount];
+    for(int h = 0; h < playerCount; h++) moveCount[h] = 0;
     // this vars are for LeaveCampValue type
     /*This Vars are for repeating sequence*/
-    int lm[playerCount][2] = {{0}}; //save previous moves
+    int lm[playerCount][2]; 
+    for(int h = 0; h < playerCount; h++) lm[h][0] = 0 , lm[h][1] =0; //save previous moves
     int lmt[2];                     //save this move
     int RepeatCount = 0, RepeatSwitch = 0, drawOffer = 0;
     /*End of var list*/
