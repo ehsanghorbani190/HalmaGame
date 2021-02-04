@@ -2,6 +2,10 @@ int boardSize = 20;
 int playerCount = 4;
 int beadType = 4;
 int leaveCampValue = 50;
+int FPC = 2;
+int SPC = 1;
+int TPC = 0;
+int FoPC = 0; 
 //keys
 #define KEY_UP 72
 #define KEY_DOWN 80

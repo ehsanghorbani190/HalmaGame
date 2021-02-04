@@ -59,13 +59,30 @@ void getNeighbor(struct Node *node,int depth)
   } while (node != NULL);
   addBeadA(playerCount);
 }
-
+int getColor(char ch){
+  switch(ch){
+    case 'g':
+      return 2;
+      break;
+    case 'y':
+      return 14;
+      break;
+    case 'b':
+      return 1;
+      break;
+    case 'r':
+      return 4;
+      break;      
+  }
+}
 void searchConsts()
 {
   FILE *constsFile;
-  constsFile = fopen("init config.txt","r");
+  constsFile = fopen("config.txt","r");
+  if(!constsFile) {printf("Couldn't read setting from file , using default configuration"); return;}
   char tmp1[20],tmp2[20];
   int tmp3;
+  fscanf(constsFile,"%s" , tmp1);
   do{   // find beadtype
     fscanf(constsFile,"%s",tmp1);
       if(strcmp(tmp1,"Size")==0){ 
@@ -107,6 +124,28 @@ void searchConsts()
       }else
           fscanf(constsFile,"\n");
    } while (strcmp(tmp1,"Beads_order")!=0);
+   rewind(constsFile);
+   do{ // find Colors
+    fscanf(constsFile,"%s",tmp1);
+      if(strcmp(tmp1,"First_Color")==0){ 
+          fscanf(constsFile," = %s",tmp2);
+          FPC = getColor(tmp2[0]);
+      }
+      else if(strcmp(tmp1,"Second_Color")==0){
+          fscanf(constsFile," = %s",tmp2);
+          SPC = getColor(tmp2[0]);
+      }
+      else if(strcmp(tmp1,"Third_Color")==0){
+          fscanf(constsFile," = %s",tmp2);
+          TPC = getColor(tmp2[0]);
+      }
+      else if(strcmp(tmp1,"Forth_Color")==0){
+          fscanf(constsFile," = %s",tmp2);
+          FoPC = getColor(tmp2[0]);
+      }
+      else
+          fscanf(constsFile,"\n");
+  } while (!feof(constsFile));
    fclose(constsFile);
 }
 int main()
