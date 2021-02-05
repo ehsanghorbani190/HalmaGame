@@ -140,7 +140,10 @@ void SaveBoard(){
 void ReadBoard(){
     FILE * in;
     in = fopen("save.dat" , "rb");
+    printf("hello");
     fread(boardBead , sizeof(int) , boardSize * boardSize , in);
+    
+    printf("%d",**boardBead);
     fread(&Role , sizeof(int) ,1 , in);
     Role--;
     fclose(in);

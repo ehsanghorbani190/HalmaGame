@@ -26,8 +26,6 @@ void SetColor(int ForgC)
 
 int DrawMenu(char menu [][100], int numOfMenus){
 
-
-    
     char input;
     
     unsigned int pointer=0,position,pastPosition;
