@@ -3,6 +3,6 @@
 	Player_Num = 2
 	First_Color = green
 	Second_Color = blue
-	leave_camp_value = 30
+	leave_camp_value = 34
 	Beads_order = 1 2 3 4 3
 }
