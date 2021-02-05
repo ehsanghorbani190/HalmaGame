@@ -14,7 +14,6 @@
 int main()
 {
   searchConsts();
-  printf("%d",boardSize);
   boardBead = (int **)malloc(boardSize * sizeof(int *));
   for (int i = 0; i < boardSize; i++) boardBead[i] = (int*)malloc(boardSize * sizeof(int));
   SOCKET socket;

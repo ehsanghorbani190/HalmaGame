@@ -338,7 +338,7 @@ void play()
         gotoxy(7 + x * 4, 3 + y * 2);
         printf("\b%c", ' ');
         fx = x, fy = y;
-        lmt[0] = (fx * 1000) + fy;
+        lmt[0] = (fx * 1000) + fy; 
         int movingBead = boardBead[y][x];
         boardBead[y][x] = 0;
         ch = (ch == 27) ? ch : '\0';
@@ -401,7 +401,7 @@ void play()
                     
                 }
             }
-            else if (ch == 'f' || ch == 'F')
+            else if (continues && ch == 'f' || ch == 'F')
             {
                 continues = 0;
                 break;
@@ -415,7 +415,7 @@ void play()
             BeadReplace = 0;
             continue;
         }
-        if (ch == 'f')
+        if (ch == 'f' || ch == 'F')
         {
             boardBead[fy][fx] = movingBead, continues = 0, Role = (Role < playerCount) ? Role + 1 : 1;
             ColorSwitch(boardBead[fy][fx]);
