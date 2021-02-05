@@ -31,7 +31,7 @@ void playWithAI()
     int BeadReplace = 0;
     int numOfCases = 0;
     int random = 0;
-     int BeadNumber = 6 * beadType - 11;
+     int BeadNumber = (beadType*(beadType+1)/2)+beadType-1 ;
     //int BeadNumber = 2;
     int continues = 0; // with this we will know that player is doing multiple jumps or not
     char ch, tch;      //this vars are for getting keyboard movment and printing the cell's beads
