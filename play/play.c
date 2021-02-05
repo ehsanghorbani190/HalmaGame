@@ -444,14 +444,26 @@ void play()
             sumMove += moveCount[w];
         if (sumMove >= leaveCampValue)
         {
-            if (winnerChecker_type1() == 1 || winnerChecker_type2() == 1)
-                Log("Player 1 Won :]");
-            else if (winnerChecker_type1() == 2 || winnerChecker_type2() == 2)
-                Log("Player 2 Won :]");
-            else if (playerCount == 4 && winnerChecker_type1() == 3 || winnerChecker_type2() == 3)
-                Log("Player 3 Won :]");
-            else if (playerCount == 4 && winnerChecker_type1() == 4 || winnerChecker_type2() == 4)
-                Log("Player 4 Won :]");
+            if (winnerChecker_type1() == 1 || winnerChecker_type2() == 1){
+                Log("Player 1 Won :] press anything to exit");
+                getch();
+                exit(0);
+            }
+            else if (winnerChecker_type1() == 2 || winnerChecker_type2() == 2){
+                Log("Player 2 Won :] press anything to exit");
+                getch();
+                exit(0);
+            }
+            else if (playerCount == 4 && winnerChecker_type1() == 3 || winnerChecker_type2() == 3){
+                Log("Player 3 Won :] press anything to exit");
+                getch();
+                exit(0);
+                }
+            else if (playerCount == 4 && winnerChecker_type1() == 4 || winnerChecker_type2() == 4){
+                Log("Player 4 Won :] press anything to exit");
+                getch();
+                exit(0);
+            }
         }
         lmt[1] = (tx * 1000) + ty;
         if (lm[Role - 1][0] == 0)
